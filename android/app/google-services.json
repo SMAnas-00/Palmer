@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "843032809872",
+    "project_id": "palmer-ae3b8",
+    "storage_bucket": "palmer-ae3b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843032809872:android:1a37b52821fb49dfb76315",
+        "android_client_info": {
+          "package_name": "com.example.palmer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843032809872-lc48rmv42afgdu2b4gskbl9sk7d8k1ij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsDKoUh3yRE6Y3xLaBKI-GRL5PurukIgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843032809872-lc48rmv42afgdu2b4gskbl9sk7d8k1ij.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
