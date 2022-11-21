@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:palmer/HomeScreen.dart';
 import 'package:palmer/addons/round_button.dart';
 import 'AccountScreen.dart';
 
@@ -13,12 +15,24 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final emailcontrol = TextEditingController();
   final passwordcontrol = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void dispose() {
     super.dispose();
     emailcontrol.dispose();
     passwordcontrol.dispose();
+  }
+
+  void login() {
+    auth
+        .signInWithEmailAndPassword(
+            email: emailcontrol.text, password: passwordcontrol.text)
+        .then((value) {
+      print("Login");
+    }).onError((error, stackTrace) {
+      print(error.toString());
+    });
   }
 
   @override
@@ -73,7 +87,6 @@ class _LoginState extends State<Login> {
                         controller: passwordcontrol,
                         keyboardType: TextInputType.text,
                         obscureText: true,
-                        obscuringCharacter: '*',
                         decoration: const InputDecoration(
                           hintText: 'Password',
                           prefixIcon: Icon(Icons.password_sharp),
@@ -95,7 +108,11 @@ class _LoginState extends State<Login> {
               RoundButton(
                 title: "login",
                 onTap: () {
-                  if (_formKey.currentState!.validate()) {}
+                  if (_formKey.currentState!.validate()) {
+                    login();
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Home()));
+                  }
                 },
               )
             ]),
