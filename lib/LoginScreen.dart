@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors, unnecessary_new, library_private_types_in_public_api, prefer_const_constructors, non_constant_identifier_names, unused_field
+
 import 'package:flutter/material.dart';
 import 'package:palmer/AccountScreen.dart';
 import 'package:palmer/HomeScreen.dart';
@@ -9,6 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     final logo = Hero(
@@ -77,20 +80,23 @@ class _LoginPageState extends State<LoginPage> {
           iconTheme: IconThemeData(
             color: Color.fromARGB(255, 255, 194, 101),
           )),
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
-          children: <Widget>[
-            logo,
-            SizedBox(height: 48.0),
-            email,
-            SizedBox(height: 8.0),
-            password,
-            SizedBox(height: 30.0),
-            loginButton,
-            forgotLabel
-          ],
+      body: Form(
+        key: _formKey,
+        child: Center(
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.only(left: 24.0, right: 24.0),
+            children: <Widget>[
+              logo,
+              SizedBox(height: 48.0),
+              email,
+              SizedBox(height: 8.0),
+              password,
+              SizedBox(height: 30.0),
+              loginButton,
+              forgotLabel
+            ],
+          ),
         ),
       ),
     );

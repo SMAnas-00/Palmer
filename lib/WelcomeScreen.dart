@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_const_constructors, use_build_context_synchronously, avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 
 import 'HomeScreen.dart';

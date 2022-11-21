@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 import '../AccountScreen.dart';

@@ -1,7 +1,9 @@
+// ignore_for_file: prefer_const_constructors, file_names, camel_case_types
+
 import 'package:flutter/material.dart';
-import 'package:palmer/LoginScreen.dart';
 import 'addons/DrawerMenu.dart';
 import 'addons/SearchBar.dart';
+import 'login_Screen.dart';
 
 class account_Page extends StatefulWidget {
   const account_Page({super.key});
@@ -38,8 +40,8 @@ class _account_PageState extends State<account_Page> {
               child: Icon(Icons.account_circle),
             ),
             onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => LoginPage()));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Login()));
             },
           )
         ],
