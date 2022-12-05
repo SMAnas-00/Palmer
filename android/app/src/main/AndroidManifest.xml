@@ -3,7 +3,7 @@
    <application
         android:label="palmer"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="images/mainicon.png">
         <activity
             android:name=".MainActivity"
             android:exported="true"
