@@ -1,9 +1,10 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:palmer/Services/Api_Services.dart';
+import 'package:palmer/addons/Side_Drawer.dart';
 
 import 'AccountScreen.dart';
-import 'addons/DrawerMenu.dart';
 import 'addons/SearchBar.dart';
 
 class Home extends StatefulWidget {
@@ -60,7 +61,7 @@ class MyHome extends StatelessWidget {
             )
           ],
         ),
-        drawer: Drawer_menu(),
+        drawer: Side_Drawer(),
         body: Center(),
         bottomNavigationBar: BottomAppBar(
           child: Row(children: []),

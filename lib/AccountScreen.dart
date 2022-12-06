@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, file_names, camel_case_types
 
 import 'package:flutter/material.dart';
-import 'addons/DrawerMenu.dart';
+import 'package:palmer/addons/Side_Drawer.dart';
 import 'addons/SearchBar.dart';
 import 'login_Screen.dart';
 
@@ -46,7 +46,7 @@ class _account_PageState extends State<account_Page> {
           )
         ],
       ),
-      drawer: Drawer(child: Drawer_menu()),
+      drawer: Side_Drawer(),
       body: Center(),
     );
   }
