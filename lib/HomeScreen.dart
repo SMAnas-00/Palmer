@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:palmer/Services/Api_Services.dart';
+
 import 'package:palmer/addons/NavBar.dart';
 
 import 'AccountScreen.dart';
@@ -96,6 +96,7 @@ class MyHome extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
+                      margin: EdgeInsets.only(left: 20.0),
                       padding: EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -112,8 +113,23 @@ class MyHome extends StatelessWidget {
                       ),
                     ),
                     Container(
+                      margin: EdgeInsets.only(left: 10.0),
+                      padding: EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [
+                              Colors.amberAccent,
+                              Color.fromARGB(255, 104, 99, 80)
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                      ),
                       child: Column(
-                        children: [],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.mosque_outlined),
+                          Text('UMMRAHH')
+                        ],
                       ),
                     ),
                     Container(

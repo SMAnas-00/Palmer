@@ -13,11 +13,12 @@ class RoundButton extends StatelessWidget {
       child: Container(
         height: 50,
         decoration: BoxDecoration(
-            color: Colors.deepPurple, borderRadius: BorderRadius.circular(20)),
+            color: Color.fromARGB(255, 29, 165, 153),
+            borderRadius: BorderRadius.circular(20)),
         child: Center(
             child: Text(
           title,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontSize: 18.0),
         )),
       ),
     );

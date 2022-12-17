@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:palmer/AccountScreen.dart';
 import 'package:palmer/HomeScreen.dart';
 import 'package:palmer/Notifications_Screen.dart';
+import 'package:palmer/Services/Hotels/Hotels.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
@@ -52,8 +53,16 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.playlist_add_check_outlined),
-            title: Text('ToDo'),
+            title: Text('Todo'),
             onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.playlist_add_check_outlined),
+            title: Text('Hotels'),
+            onTap: () {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Hotels()));
+            },
           ),
           Divider(),
           SizedBox(

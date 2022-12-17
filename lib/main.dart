@@ -2,6 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:palmer/Signup.dart';
 import 'package:palmer/WelcomeScreen.dart';
 
 void main() async {
@@ -11,11 +12,21 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Splash(),
-    );
+    return FutureBuilder(
+        future: _initialization,
+        builder: (context, snapshot) {
+          // check for Error
+          if (snapshot.hasError) print('Something went Wrong');
+          if (snapshot.connectionState == ConnectionState.done) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: Splash(),
+            );
+          }
+          return CircularProgressIndicator();
+        });
   }
 }

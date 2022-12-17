@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:palmer/HomeScreen.dart';
+import 'package:palmer/Signup.dart';
 import 'package:palmer/addons/round_button.dart';
 import 'AccountScreen.dart';
 
@@ -12,6 +14,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  // here we have the id of login user...
+  var userid;
   final _formKey = GlobalKey<FormState>();
   final emailcontrol = TextEditingController();
   final passwordcontrol = TextEditingController();
@@ -24,20 +28,22 @@ class _LoginState extends State<Login> {
     passwordcontrol.dispose();
   }
 
-  void login() {
-    auth
-        .signInWithEmailAndPassword(
-            email: emailcontrol.text, password: passwordcontrol.text)
-        .then((value) {
-      print("Login");
-    }).onError((error, stackTrace) {
-      print(error.toString());
-    });
+  Future<void> login() async {
+    UserCredential usercred = auth.signInWithEmailAndPassword(
+        email: emailcontrol.text,
+        password: passwordcontrol.text) as UserCredential;
+    userid = usercred.user!.uid;
+    //     .then((value) {
+    //   print("Login");
+    // }).onError((error, stackTrace) {
+    //   print(error.toString());
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     final BackArrow = IconButton(
+        color: Color.fromARGB(255, 255, 194, 101),
         onPressed: () {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => account_Page()));
@@ -48,7 +54,11 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         leading: BackArrow,
         automaticallyImplyLeading: true,
-        title: Text('LOGIN'),
+        title: Text(
+          'LOGIN',
+          style: TextStyle(color: Color.fromARGB(255, 29, 165, 153)),
+        ),
+        backgroundColor: Color.fromARGB(255, 254, 253, 252),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -105,14 +115,34 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   )),
+              // Submit Button
               RoundButton(
-                title: "login",
+                title: "LOGIN",
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
                     login();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Home()));
                   }
+                },
+              ),
+              const SizedBox(height: 30.0),
+
+              // Create New Account Button
+              GestureDetector(
+                child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: const Text(
+                    'CREATE NEW ACCOUNT',
+                    style: TextStyle(
+                        color: Colors.lightBlue,
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => SignUp()));
                 },
               )
             ]),
