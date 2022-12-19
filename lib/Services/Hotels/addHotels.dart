@@ -16,14 +16,6 @@ class addHotelScreen extends StatefulWidget {
 
 class _addHotelScreenState extends State<addHotelScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  // var doc_ref = FirebaseFirestore.instance
-  //     .collection('app')
-  //     .doc('Services')
-  //     .collection('Hotels')
-  //     .doc();
-
-  //File? _image;
-  final picker = ImagePicker();
   final _formKey = GlobalKey<FormState>();
   final _Hotelname = TextEditingController();
   final _Hotelprice = TextEditingController();

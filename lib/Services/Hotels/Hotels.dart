@@ -18,7 +18,7 @@ class _HotelsState extends State<Hotels> {
   CollectionReference Hotelitems = FirebaseFirestore.instance
       .collection('app')
       .doc('Services')
-      .collection('Hotels');
+      .collection('Transport');
   late Stream<QuerySnapshot> _streamHotellistMakkah;
 
   void initState() {
@@ -40,7 +40,7 @@ class _HotelsState extends State<Hotels> {
         leading: BackArrow,
         automaticallyImplyLeading: true,
         title: Text(
-          'Hotels',
+          'Transport',
           style: TextStyle(color: Color.fromARGB(255, 29, 165, 153)),
         ),
         actions: [
@@ -71,66 +71,16 @@ class _HotelsState extends State<Hotels> {
               itemCount: listqureysnap.length,
               itemBuilder: (context, index) {
                 QueryDocumentSnapshot document = listqureysnap[index];
-                final img = document['Hotel_image'].toString();
+                // final img = document['Hotel_image'].toString();
                 return Column(
                   children: [
                     Card(
                       margin: EdgeInsets.symmetric(
                           vertical: 20.0, horizontal: 10.0),
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 20.0, horizontal: 10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              //padding: EdgeInsets.all(40.0),
-                              decoration:
-                                  BoxDecoration(color: Colors.lightGreen),
-                              child: Image.network(
-                                '$img',
-                                height: 100.0,
-                                width: 100.0,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                            Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                      child: Text(document['Hotel_name'])),
-                                  Container(
-                                      child: Text('Category: ' +
-                                          document['Stars'].toString())),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              child: Column(children: [
-                                Text("₨" + document['Hotel_price'].toString())
-                              ]),
-                            ),
-                          ],
-                        ),
-                        // child: Column(
-                        //   children: [
-                        //     Row(
-                        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //       children: [
-                        //         Text(document['Hotel_name']),
-                        //         Text("₨" + document['Hotel_price'].toString()),
-                        //       ],
-                        //     ),
-                        //     SizedBox(height: 5.0),
-                        //     Row(
-                        //       children: [
-                        //         Text('Category:'),
-                        //         Text(document['Stars'].toString()),
-                        //       ],
-                        //     )
-                        //   ],
-                        // ),
-                      ),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 10.0),
+                          child: Text(document['Transport_type'])),
                     ),
                   ],
                 );

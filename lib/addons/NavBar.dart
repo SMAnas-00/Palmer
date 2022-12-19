@@ -1,12 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:palmer/AccountScreen.dart';
 import 'package:palmer/HomeScreen.dart';
 import 'package:palmer/Notifications_Screen.dart';
 import 'package:palmer/Services/Hotels/Hotels.dart';
+import 'package:palmer/Services/Transport/Transport.dart';
 
-class NavBar extends StatelessWidget {
+class NavBar extends StatefulWidget {
   const NavBar({super.key});
 
+  @override
+  State<NavBar> createState() => _NavBarState();
+}
+
+class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -14,7 +22,7 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('Muhammad Ahmed'),
+            accountName: Text("abc"),
             accountEmail: Text(
               'ahmedmuhammad@gmail.com',
               style: TextStyle(color: Colors.amberAccent),
@@ -57,11 +65,19 @@ class NavBar extends StatelessWidget {
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.playlist_add_check_outlined),
+            leading: Icon(Icons.hotel_outlined),
             title: Text('Hotels'),
             onTap: () {
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (context) => Hotels()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.emoji_transportation_outlined),
+            title: Text('Transport'),
+            onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => TransportService()));
             },
           ),
           Divider(),
