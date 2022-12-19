@@ -60,7 +60,7 @@ class _SignUpState extends State<SignUp> {
         'Created_by': "user",
         'Active_lock': "1",
         'Modified_by': "user",
-        'Modified_date': "17/12/2022",
+        'Modified_date': DateTime.now().millisecondsSinceEpoch,
         'Stautus': "Active",
       });
     });
