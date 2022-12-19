@@ -96,19 +96,77 @@ class _HotelsState extends State<Hotels> {
                             ),
                             Container(
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                      child: Text(document['Hotel_name'])),
-                                  Container(
-                                      child: Text('Category: ' +
-                                          document['Stars'].toString())),
+                                      child: Text(
+                                    document['Hotel_name'],
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 29, 165, 153),
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.location_on_outlined,
+                                        color: Colors.grey[600],
+                                        size: 12.0,
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          document['Hotel_location'],
+                                          style: TextStyle(
+                                              color: Colors.grey[500],
+                                              fontSize: 13.0,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.hotel_class,
+                                        color:
+                                            Color.fromARGB(200, 255, 194, 101),
+                                        size: 17.0,
+                                      ),
+                                      Container(
+                                          child: Text(
+                                        document['Stars'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.grey[600],
+                                            fontSize: 13.0),
+                                      )),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
                             Container(
-                              child: Column(children: [
-                                Text("₨" + document['Hotel_price'].toString())
-                              ]),
+                              child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "₨" +
+                                          document['Hotel_price'].toString() +
+                                          "/-",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15.0),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {},
+                                      child: Text("Book Now"),
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              Color.fromARGB(255, 29, 165, 153),
+                                          minimumSize: Size(15, 10)),
+                                    )
+                                  ]),
                             ),
                           ],
                         ),
