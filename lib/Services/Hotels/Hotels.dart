@@ -71,6 +71,7 @@ class _HotelsState extends State<Hotels> {
               itemCount: listqureysnap.length,
               itemBuilder: (context, index) {
                 QueryDocumentSnapshot document = listqureysnap[index];
+                final img = document['Hotel_image'].toString();
                 return Column(
                   children: [
                     Card(
@@ -80,14 +81,35 @@ class _HotelsState extends State<Hotels> {
                         padding: EdgeInsets.symmetric(
                             vertical: 20.0, horizontal: 10.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              padding: EdgeInsets.all(40.0),
+                              //padding: EdgeInsets.all(40.0),
                               decoration:
                                   BoxDecoration(color: Colors.lightGreen),
+                              child: Image.network(
+                                '$img',
+                                height: 100.0,
+                                width: 100.0,
+                                fit: BoxFit.fill,
+                              ),
                             ),
-                            Container(),
-                            Container(),
+                            Container(
+                              child: Column(
+                                children: [
+                                  Container(
+                                      child: Text(document['Hotel_name'])),
+                                  Container(
+                                      child: Text('Category: ' +
+                                          document['Stars'].toString())),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              child: Column(children: [
+                                Text("₨" + document['Hotel_price'].toString())
+                              ]),
+                            ),
                           ],
                         ),
                         // child: Column(

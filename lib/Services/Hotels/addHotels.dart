@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:palmer/Services/Hotels/Hotel_image_picker.dart';
 import 'package:palmer/Services/Hotels/Hotels.dart';
 import 'package:palmer/main.dart';
 
@@ -35,24 +34,6 @@ class _addHotelScreenState extends State<addHotelScreen> {
   final _Hotelcity = TextEditingController();
   final _Hotelimage = TextEditingController();
 
-  // Future imagePicker() async {
-  //   final pick = await picker.pickImage(source: ImageSource.gallery);
-  //   setState(() {
-  //     if (pick != null) {
-  //       _image = File(pick.path);
-  //     }
-  //   });
-  // }
-
-  // Future uploadImage(File _image) async {
-  //   final user_collection = firestore.collection('app').doc('Hotels');
-  //   final hotel_id = user_collection.collection('Makkah').get();
-
-  //   Reference ref =
-  //       FirebaseStorage.instance.ref().child('app').child('/images');
-  //   ref.putFile(_image);
-  // }
-
   addHotel() async {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
@@ -77,16 +58,14 @@ class _addHotelScreenState extends State<addHotelScreen> {
           'Hotel_image': _Hotelimage.text,
           'Active_rooms': '3',
           'Stars': _Hoteltype.text,
-          'Hotel_capacity': _Hotelperson.text,
+          'Room_capacity': _Hotelperson.text,
+          'Hotel_id': did.toString(),
         });
       } on FirebaseException catch (e) {
         displayMessage(e.toString());
       }
     }
   }
-
-  // List<String> items = ['Makkah', 'Madina'];
-  // String? selecteditem = 'Makkah';
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +158,18 @@ class _addHotelScreenState extends State<addHotelScreen> {
                     return null;
                   },
                 ),
+                // Person per room
+                TextFormField(
+                  controller: _Hotelperson,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: 'Persons per Room'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Required';
+                    }
+                    return null;
+                  },
+                ),
                 // Hotel City
                 TextFormField(
                   controller: _Hotelcity,
@@ -204,53 +195,8 @@ class _addHotelScreenState extends State<addHotelScreen> {
                   },
                 ),
 
-                // Container(
-                //   margin: EdgeInsets.symmetric(horizontal: 20.0),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       Text("CITY"),
-                //       DropdownButton<String>(
-                //           value: selecteditem,
-                //           items: items
-                //               .map((item) => DropdownMenuItem<String>(
-                //                   value: item,
-                //                   child: Text(
-                //                     item,
-                //                   )))
-                //               .toList(),
-                //           onChanged: (item) =>
-                //               setState((() => selecteditem = item))),
-                //     ],
-                //   ),
-                // ),
-
                 SizedBox(height: 30),
-                //Hotel Image Picker
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //   children: [
-                //     Container(
-                //       width: 100,
-                //       height: 100,
-                //       child: _image == null
-                //           ? Image.network(
-                //               'https://static.thenounproject.com/png/2413564-200.png',
-                //               fit: BoxFit.cover,
-                //             )
-                //           : Image.file(_image!),
-                //     ),
-                //     ElevatedButton.icon(
-                //       onPressed: () {
-                //         imagePicker();
-                //       },
-                //       style: ElevatedButton.styleFrom(
-                //           backgroundColor: Color.fromARGB(255, 29, 165, 153)),
-                //       icon: Icon(Icons.image),
-                //       label: Text('Add Image'),
-                //     ),
-                //   ],
-                // ),
+
                 SizedBox(height: 30),
                 // Submit Button
                 ElevatedButton(
@@ -259,9 +205,6 @@ class _addHotelScreenState extends State<addHotelScreen> {
                       backgroundColor: Color.fromARGB(255, 29, 165, 153)),
                   onPressed: () {
                     addHotel();
-                    // imagePicker().whenComplete(() {
-                    //   uploadImage(_image!);
-                    // });
                   },
                   child: Text('Submit'),
                 ),
