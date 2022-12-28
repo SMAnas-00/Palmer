@@ -45,6 +45,7 @@ dependencies:
   email_validator: ^2.1.17
   get: ^4.6.5
   image_picker: ^0.8.6
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
