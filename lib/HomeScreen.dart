@@ -143,17 +143,36 @@ class _MyHomeState extends State<MyHome> {
                 height: 60.0,
               ),
 
-              //     --------------------- Home page Work -------------------------------------
-
+              //  =======  About section ============
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
+                      margin: EdgeInsets.only(left: 40),
                       child: Image.network(
-                    'https://cdn-icons-png.flaticon.com/512/424/424162.png',
-                    width: 0.0,
-                    height: 30.0,
-                  )),
-                  Container(),
+                        'https://cdn-icons-png.flaticon.com/512/424/424162.png',
+                        width: 120.0,
+                        height: 130.0,
+                      )),
+                  // ==== Text Section in About ========
+                  Container(
+                    margin: EdgeInsets.only(right: 60),
+                    child: Column(
+                      children: [
+                        Container(child: Text('ABOUT')),
+                        Divider(thickness: 3),
+                        Container(
+                          width: 160,
+                          height: 150,
+                          child: Text(
+                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type.',
+                            style: TextStyle(),
+                          ),
+                        ),
+                        Container()
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ],
