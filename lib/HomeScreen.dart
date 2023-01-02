@@ -2,30 +2,34 @@
 
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:palmer/Login&Signup.dart';
 
 import 'package:palmer/addons/NavBar.dart';
 
 import 'AccountScreen.dart';
 import 'addons/SearchBar.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+// class Home extends StatefulWidget {
+//   Home({super.key});
 
-  @override
-  State<Home> createState() => _HomeState();
-}
+//   @override
+//   State<Home> createState() => _HomeState();
+// }
 
-class _HomeState extends State<Home> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'HOME',
-      home: MyHome(),
-    );
-  }
-}
+// class _HomeState extends State<Home> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'HOME',
+//       home: MyHome(),
+//     );
+//   }
+// }
 
 class MyHome extends StatefulWidget {
   @override
@@ -159,21 +163,44 @@ class _MyHomeState extends State<MyHome> {
                     margin: EdgeInsets.only(right: 60),
                     child: Column(
                       children: [
-                        Container(child: Text('ABOUT')),
-                        Divider(thickness: 3),
+                        Container(
+                            child: Text(
+                          'ABOUT',
+                          style:
+                              GoogleFonts.rubikBubbles(color: Colors.teal[400]),
+                        )),
+                        SizedBox(height: 10),
                         Container(
                           width: 160,
                           height: 150,
                           child: Text(
                             'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type.',
-                            style: TextStyle(),
+                            style:
+                                GoogleFonts.andika(fontStyle: FontStyle.italic),
                           ),
                         ),
-                        Container()
                       ],
                     ),
                   ),
                 ],
+              ),
+              // END OF ABOUT SECTION ========================
+              SizedBox(height: 30),
+              // Packages showed up here ==================
+
+              Container(
+                child: Column(
+                  children: [
+                    Text("Packages"),
+                    Row(
+                      children: [
+                        Container(),
+                        Container(),
+                        Container(),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ],
           ),

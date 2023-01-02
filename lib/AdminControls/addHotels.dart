@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:palmer/AdminControls/AdminDash.dart';
 import 'package:palmer/Services/Hotels/Hotels.dart';
 import 'package:palmer/main.dart';
 
@@ -64,8 +65,9 @@ class _addHotelScreenState extends State<addHotelScreen> {
     final BackArrow = IconButton(
         color: Color.fromARGB(255, 255, 194, 101),
         onPressed: () {
+          //Navigator.pop(context);
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Hotels()));
+              context, MaterialPageRoute(builder: (context) => AdminPanel()));
         },
         icon: Icon(Icons.arrow_back));
     return Scaffold(

@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:palmer/HomeScreen.dart';
+import 'package:palmer/Login&Signup.dart';
 import 'package:palmer/Signup.dart';
 import 'package:palmer/addons/round_button.dart';
+import 'package:palmer/main.dart';
 import 'AccountScreen.dart';
 
 class Login extends StatefulWidget {
@@ -23,7 +26,6 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
-    super.dispose();
     emailcontrol.dispose();
     passwordcontrol.dispose();
   }
@@ -32,12 +34,9 @@ class _LoginState extends State<Login> {
     UserCredential usercred = auth.signInWithEmailAndPassword(
         email: emailcontrol.text,
         password: passwordcontrol.text) as UserCredential;
+
     userid = usercred.user!.uid;
-    //     .then((value) {
-    //   print("Login");
-    // }).onError((error, stackTrace) {
-    //   print(error.toString());
-    // });
+    print(userid);
   }
 
   @override
@@ -45,8 +44,7 @@ class _LoginState extends State<Login> {
     final BackArrow = IconButton(
         color: Color.fromARGB(255, 255, 194, 101),
         onPressed: () {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => account_Page()));
+          Navigator.pop(context);
         },
         icon: Icon(Icons.arrow_back));
 
@@ -79,8 +77,11 @@ class _LoginState extends State<Login> {
                           prefixIcon: Icon(Icons.alternate_email),
                         ),
                         validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter Email';
+                          if (value!.isEmpty ||
+                              !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(value)) {
+                            //allow upper and lower case alphabets and space
+                            return "Enter Correct Name";
                           } else {
                             return null;
                           }
@@ -121,8 +122,7 @@ class _LoginState extends State<Login> {
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
                     login();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Home()));
+                    Navigator.pushNamed(context, '/userdash');
                   }
                 },
               ),
@@ -141,8 +141,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SignUp()));
+                  Navigator.pushNamed(context, '/signup');
                 },
               )
             ]),
@@ -150,3 +149,20 @@ class _LoginState extends State<Login> {
     );
   }
 }
+
+// class UserManagment {
+//   Widget handleAuth() {
+//     return StreamBuilder(
+//         stream: FirebaseAuth.instance.authStateChanges(),
+//         builder: (BuildContext context, snapshot) {
+//           if (snapshot.hasData) {
+//             return MyHome();
+//           }
+//           return ScreenLoginSignup();
+//         });
+//   }
+//   authorizeAccess(BuildContext context){
+//      FirebaseAuth.instance.currentUser.then((user){
+//      });
+//   }
+// }

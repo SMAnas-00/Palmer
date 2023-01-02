@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:palmer/Services/Transport/addTransport.dart';
+import 'package:palmer/AdminControls/addTransport.dart';
 
 import '../../HomeScreen.dart';
 import '../../addons/NavBar.dart';
@@ -31,7 +31,7 @@ class _TransportServiceState extends State<TransportService> {
         color: Color.fromARGB(255, 255, 194, 101),
         onPressed: () {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Home()));
+              context, MaterialPageRoute(builder: (context) => MyHome()));
         },
         icon: Icon(Icons.arrow_back));
     return Scaffold(
@@ -42,20 +42,6 @@ class _TransportServiceState extends State<TransportService> {
           'Transport',
           style: TextStyle(color: Color.fromARGB(255, 29, 165, 153)),
         ),
-        actions: [
-          GestureDetector(
-            child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 15),
-                child:
-                    Icon(Icons.add, color: Color.fromARGB(255, 255, 194, 101))),
-            onTap: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => addTransportScreen()));
-            },
-          )
-        ],
         backgroundColor: Color.fromARGB(255, 254, 253, 252),
       ),
       drawer: NavBar(),

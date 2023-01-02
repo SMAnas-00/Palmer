@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:palmer/HomeScreen.dart';
-import 'package:palmer/Services/Hotels/addHotels.dart';
+import 'package:palmer/AdminControls/addHotels.dart';
 import 'package:palmer/addons/NavBar.dart';
 
 class Hotels extends StatefulWidget {
@@ -32,7 +32,7 @@ class _HotelsState extends State<Hotels> {
         color: Color.fromARGB(255, 255, 194, 101),
         onPressed: () {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Home()));
+              context, MaterialPageRoute(builder: (context) => MyHome()));
         },
         icon: Icon(Icons.arrow_back));
     return Scaffold(
@@ -43,18 +43,6 @@ class _HotelsState extends State<Hotels> {
           'Hotels',
           style: TextStyle(color: Color.fromARGB(255, 29, 165, 153)),
         ),
-        actions: [
-          GestureDetector(
-            child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 15),
-                child:
-                    Icon(Icons.add, color: Color.fromARGB(255, 255, 194, 101))),
-            onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => addHotelScreen()));
-            },
-          )
-        ],
         backgroundColor: Color.fromARGB(255, 254, 253, 252),
       ),
       drawer: NavBar(),

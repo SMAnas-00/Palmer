@@ -61,7 +61,7 @@ class _SignUpState extends State<SignUp> {
         'Active_lock': "1",
         'Modified_by': "user",
         'Modified_date': DateTime.now().millisecondsSinceEpoch,
-        'Stautus': "Active",
+        'Status': "Active",
       });
     });
   }
@@ -71,8 +71,7 @@ class _SignUpState extends State<SignUp> {
     final BackArrow = IconButton(
         color: Color.fromARGB(255, 255, 194, 101),
         onPressed: () {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Login()));
+          Navigator.pop(context);
         },
         icon: Icon(Icons.arrow_back));
     return Scaffold(

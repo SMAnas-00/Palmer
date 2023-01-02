@@ -24,27 +24,27 @@ class _account_PageState extends State<account_Page> {
           'Account',
           style: TextStyle(color: Color.fromARGB(255, 29, 165, 153)),
         ),
-        actions: [
-          GestureDetector(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
-              child: Icon(Icons.search),
-            ),
-            onTap: () {
-              showSearch(context: context, delegate: CustomSearchDelegate());
-            },
-          ),
-          GestureDetector(
-            child: Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 2, 0),
-              child: Icon(Icons.account_circle),
-            ),
-            onTap: () {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Login()));
-            },
-          )
-        ],
+        // actions: [
+        //   GestureDetector(
+        //     child: Container(
+        //       margin: EdgeInsets.symmetric(horizontal: 15),
+        //       child: Icon(Icons.search),
+        //     ),
+        //     onTap: () {
+        //       showSearch(context: context, delegate: CustomSearchDelegate());
+        //     },
+        //   ),
+        //   // GestureDetector(
+        //   //   child: Container(
+        //   //     margin: EdgeInsets.fromLTRB(0, 0, 2, 0),
+        //   //     child: Icon(Icons.account_circle),
+        //   //   ),
+        //   //   onTap: () {
+        //   //     Navigator.pushReplacement(
+        //   //         context, MaterialPageRoute(builder: (context) => Login()));
+        //   //   },
+        //   // )
+        // ],
       ),
       drawer: NavBar(),
       body: Center(),

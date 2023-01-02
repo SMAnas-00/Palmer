@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:palmer/Services/Transport/Transport.dart';
+import 'package:palmer/AdminControls/AdminDash.dart';
 
-import '../../main.dart';
+import '../main.dart';
 
 class addTransportScreen extends StatefulWidget {
   const addTransportScreen({super.key});
@@ -52,8 +52,9 @@ class _addTransportScreenState extends State<addTransportScreen> {
     final BackArrow = IconButton(
         color: Color.fromARGB(255, 255, 194, 101),
         onPressed: () {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => TransportService()));
+          //Navigator.pop(context);
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => AdminPanel()));
         },
         icon: Icon(Icons.arrow_back));
     return Scaffold(
