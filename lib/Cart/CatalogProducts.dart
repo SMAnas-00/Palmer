@@ -9,14 +9,12 @@ class CatalogProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Flexible(
-        child: ListView.builder(
-            itemCount: Product.products.length,
-            itemBuilder: (BuildContext context, int index) {
-              return CatalogProductCard(index: index);
-            }),
-      ),
+    return Flexible(
+      child: ListView.builder(
+          itemCount: Product.products.length,
+          itemBuilder: (BuildContext context, int index) {
+            return CatalogProductCard(index: index);
+          }),
     );
   }
 }

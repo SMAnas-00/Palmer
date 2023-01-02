@@ -21,6 +21,8 @@ class CartController extends GetxController {
     } else {
       _products[product] -= 1;
     }
+    Get.snackbar(
+        'Product Removed', 'You have droped ${product.name} from your Cart');
   }
 
   get products => _products;

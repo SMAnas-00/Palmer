@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palmer/AdminControls/AdminDash.dart';
+import 'package:palmer/Cart/CartScreen.dart';
 import 'package:palmer/Cart/Catalog_screen.dart';
 import 'package:palmer/HomeScreen.dart';
 import 'package:palmer/Signup.dart';
@@ -60,7 +61,7 @@ class _ScreenLoginSignupState extends State<ScreenLoginSignup> {
             ElevatedButton(
                 onPressed: () {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => AdminPanel()));
+                      MaterialPageRoute(builder: (context) => CatalogScreen()));
                 },
                 child: Text('Practice'))
           ],

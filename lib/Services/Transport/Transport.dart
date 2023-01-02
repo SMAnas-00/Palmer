@@ -59,7 +59,21 @@ class _TransportServiceState extends State<TransportService> {
                 itemBuilder: (context, index) {
                   QueryDocumentSnapshot document = listqureysnap[index];
                   //final img = document['Hotel_image'].toString();
-                  return Container(child: Card());
+                  return Container(
+                      child: Card(
+                    child: Row(
+                      children: [
+                        Container(
+                          child: Text(document['Transport_type']),
+                        ),
+                        Container(
+                            child: Text(document['Pick_up'] +
+                                '-' +
+                                document['Destination'])),
+                        Container(),
+                      ],
+                    ),
+                  ));
                 },
               );
             }
