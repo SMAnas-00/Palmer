@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:palmer/AdminControls/AdminDash.dart';
+import 'package:palmer/Cart/CartScreen.dart';
 import 'package:palmer/HomeScreen.dart';
 import 'package:palmer/Login&Signup.dart';
 import 'package:palmer/Signup.dart';
@@ -37,6 +39,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => Login(),
         '/signup': (context) => SignUp(),
         '/userdash': (context) => MyHome(),
+        '/admindash': (context) => AdminPanel(),
+        '/cart': (context) => CartScreen(),
       },
     );
   }

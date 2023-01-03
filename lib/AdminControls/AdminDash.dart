@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:palmer/AdminControls/addHotels.dart';
@@ -31,6 +32,7 @@ class _AdminPanelState extends State<AdminPanel> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ScreenLoginSignup()));
+                FirebaseAuth.instance.signOut();
               },
               child: Icon(
                 Icons.exit_to_app,

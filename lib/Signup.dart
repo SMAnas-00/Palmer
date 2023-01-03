@@ -38,32 +38,46 @@ class _SignUpState extends State<SignUp> {
   }
 
   signup() async {
-    auth
-        .createUserWithEmailAndPassword(
-            email: _email_control.text, password: _password2_control.text)
-        .then((value) {
-      final user = auth.currentUser;
-      final uid = user?.uid;
-      firestore
-          .collection("app")
-          .doc("Users")
-          .collection("Signup")
-          .doc(uid)
-          .set({
-        'First_name': _fname_control.text,
-        'Last_name': _lname_control.text,
-        'Email': _email_control.text,
-        'Contact': _contact_control.text,
-        'Password': _password2_control.text,
-        'Address': _address_control.text,
-        'Role': 'user',
-        'Created_by': "user",
-        'Active_lock': "1",
-        'Modified_by': "user",
-        'Modified_date': DateTime.now().millisecondsSinceEpoch,
-        'Status': "Active",
+    final isValid = _formKey.currentState!.validate();
+    if (!isValid) return;
+    try {
+      await auth
+          .createUserWithEmailAndPassword(
+              email: _email_control.text, password: _password2_control.text)
+          .then((value) {
+        final user = auth.currentUser;
+        final uid = user?.uid;
+        firestore
+            .collection("app")
+            .doc("Users")
+            .collection("Signup")
+            .doc(uid)
+            .set({
+          'First_name': _fname_control.text,
+          'Last_name': _lname_control.text,
+          'Email': _email_control.text,
+          'Contact': _contact_control.text,
+          'Password': _password2_control.text,
+          'Address': _address_control.text,
+          'Role': 'user',
+          'Created_by': "user",
+          'Active_lock': "1",
+          'Modified_by': "user",
+          'Modified_date': DateTime.now().millisecondsSinceEpoch,
+          'Status': "Active",
+          'id': uid,
+        });
       });
-    });
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+    _fname_control.clear();
+    _lname_control.clear();
+    _email_control.clear();
+    _contact_control.clear();
+    _password1_control.clear();
+    _password2_control.clear();
+    _address_control.clear();
   }
 
   @override
@@ -198,6 +212,10 @@ class _SignUpState extends State<SignUp> {
                       decoration: const InputDecoration(
                           hintText: 'Retype Password',
                           prefixIcon: Icon(Icons.password_rounded)),
+                      validator: (value) =>
+                          value.toString() == _password1_control.text
+                              ? null
+                              : 'Incorrect Password',
                     ),
                     SizedBox(height: 12.0),
 
@@ -225,7 +243,6 @@ class _SignUpState extends State<SignUp> {
             ElevatedButton(
               onPressed: () {
                 signup();
-                dispose();
               },
               child: const Text(
                 'Submit',

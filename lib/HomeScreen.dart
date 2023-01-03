@@ -52,10 +52,10 @@ class _MyHomeState extends State<MyHome> {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 254, 253, 252),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Color.fromARGB(255, 255, 194, 101)),
+          iconTheme: IconThemeData(color: Colors.teal[300]),
           title: Text(
-            'HOME',
-            style: TextStyle(color: Color.fromARGB(255, 29, 165, 153)),
+            'PALMER',
+            style: TextStyle(color: Color.fromARGB(255, 255, 194, 101)),
           ),
           backgroundColor: Color.fromARGB(255, 254, 253, 252),
           actions: [
@@ -71,11 +71,10 @@ class _MyHomeState extends State<MyHome> {
             GestureDetector(
               child: Container(
                 margin: EdgeInsets.fromLTRB(0, 0, 2, 0),
-                child: Icon(Icons.account_circle),
+                child: Icon(Icons.shopping_cart),
               ),
               onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => account_Page()));
+                Navigator.pushNamed(context, '/cart');
               },
             )
           ],
@@ -152,7 +151,7 @@ class _MyHomeState extends State<MyHome> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                      margin: EdgeInsets.only(left: 40),
+                      margin: EdgeInsets.only(left: 30),
                       child: Image.network(
                         'https://cdn-icons-png.flaticon.com/512/424/424162.png',
                         width: 120.0,
@@ -160,7 +159,7 @@ class _MyHomeState extends State<MyHome> {
                       )),
                   // ==== Text Section in About ========
                   Container(
-                    margin: EdgeInsets.only(right: 60),
+                    margin: EdgeInsets.only(right: 70),
                     child: Column(
                       children: [
                         Container(

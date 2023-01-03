@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:palmer/HomeScreen.dart';
 import 'package:palmer/AdminControls/addHotels.dart';
+import 'package:palmer/Services/Request.dart';
 import 'package:palmer/addons/NavBar.dart';
 
 class Hotels extends StatefulWidget {
@@ -14,6 +16,7 @@ class Hotels extends StatefulWidget {
 }
 
 class _HotelsState extends State<Hotels> {
+  Request request = Request();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   CollectionReference Hotelitems = FirebaseFirestore.instance
       .collection('app')
@@ -25,6 +28,8 @@ class _HotelsState extends State<Hotels> {
     super.initState();
     _streamHotellistMakkah = Hotelitems.snapshots();
   }
+
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +93,7 @@ class _HotelsState extends State<Hotels> {
                                 children: [
                                   Container(
                                       child: Text(
-                                    document['Hotel_name'],
+                                    document['name'],
                                     style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 29, 165, 153),
@@ -147,7 +152,15 @@ class _HotelsState extends State<Hotels> {
                                           fontSize: 15.0),
                                     ),
                                     ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        final reqId =
+                                            '${auth.currentUser!.uid}';
+                                        request.Hotelreq(
+                                            reqId,
+                                            document['name'],
+                                            document['Hotel_id'],
+                                            document['Hotel_price']);
+                                      },
                                       child: Text("Book Now"),
                                       style: ElevatedButton.styleFrom(
                                           backgroundColor:

@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:palmer/AdminControls/AdminDash.dart';
 import 'package:palmer/HomeScreen.dart';
 import 'package:palmer/Login&Signup.dart';
 import 'package:palmer/Signup.dart';
@@ -24,19 +26,37 @@ class _LoginState extends State<Login> {
   final passwordcontrol = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  @override
-  void dispose() {
-    emailcontrol.dispose();
-    passwordcontrol.dispose();
-  }
+  login() async {
+    Future<UserCredential> usercred = auth.signInWithEmailAndPassword(
+        email: emailcontrol.text, password: passwordcontrol.text);
 
-  Future<void> login() async {
-    UserCredential usercred = auth.signInWithEmailAndPassword(
-        email: emailcontrol.text,
-        password: passwordcontrol.text) as UserCredential;
+    final user = auth.currentUser;
 
-    userid = usercred.user!.uid;
-    print(userid);
+    final dbuser = await FirebaseFirestore.instance
+        .collection('app')
+        .doc('Users')
+        .collection('Signup')
+        .doc(user?.uid)
+        .get();
+
+    if (dbuser.data()?['Role'] == 'admin') {
+      Navigator.pushNamed(context, '/admindash');
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => AdminPanel()));
+      // Get.off(() => AdminPanel());
+    } else if (dbuser.data()?['Role'] == 'user') {
+      Navigator.pushNamed(context, '/userdash');
+      // Get.off(() => MyHome());
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => MyHome()));
+    } else {
+      Navigator.pop(context);
+      // Navigator.pushReplacement(context,
+      //     MaterialPageRoute(builder: (context) => ScreenLoginSignup()));
+      // Get.off(() => ScreenLoginSignup());
+    }
+    emailcontrol.clear();
+    passwordcontrol.clear();
   }
 
   @override
@@ -120,10 +140,7 @@ class _LoginState extends State<Login> {
               RoundButton(
                 title: "LOGIN",
                 onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    login();
-                    Navigator.pushNamed(context, '/userdash');
-                  }
+                  login();
                 },
               ),
               const SizedBox(height: 30.0),
@@ -149,6 +166,7 @@ class _LoginState extends State<Login> {
     );
   }
 }
+
 
 // class UserManagment {
 //   Widget handleAuth() {

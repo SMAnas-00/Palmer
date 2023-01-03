@@ -26,6 +26,7 @@ class _addHotelScreenState extends State<addHotelScreen> {
   final _Hoteltype = TextEditingController();
   final _Hotelcity = TextEditingController();
   final _Hotelimage = TextEditingController();
+  late int price;
 
   addHotel() async {
     _formKey.currentState!.save();
@@ -43,8 +44,8 @@ class _addHotelScreenState extends State<addHotelScreen> {
             .collection('Hotels')
             .doc('$did')
             .set({
-          'Hotel_name': _Hotelname.text,
-          'Hotel_price': _Hotelprice.text,
+          'name': _Hotelname.text,
+          'Hotel_price': int.parse(_Hotelprice.text),
           'Hotel_location': _Hotellocation.text,
           'Hotel_rooms': _Hotelroom.text,
           'Hotel_city': _Hotelcity.text,
@@ -58,6 +59,14 @@ class _addHotelScreenState extends State<addHotelScreen> {
         displayMessage(e.toString());
       }
     }
+    _Hotelname.clear();
+    _Hotelprice.clear();
+    _Hotellocation.clear();
+    _Hotelroom.clear();
+    _Hotelcity.clear();
+    _Hotelimage.clear();
+    _Hoteltype.clear();
+    _Hotelperson.clear();
   }
 
   @override

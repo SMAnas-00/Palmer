@@ -37,9 +37,9 @@ class _addTransportScreenState extends State<addTransportScreen> {
             .set({
           'Pick_up': _WhereFrom.text,
           'Destination': _WhereTo.text,
-          'Fair': _Fairforthetrip.text,
+          'Fair': int.parse(_Fairforthetrip.text),
           'Transport_type': _Transtype.text,
-          'Trip_id': did.toString()
+          'Trans_id': did.toString()
         });
       } on FirebaseException catch (e) {
         displayMessage(e.toString());
@@ -81,7 +81,7 @@ class _addTransportScreenState extends State<addTransportScreen> {
                   controller: _WhereTo,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    labelText: 'Where To',
+                    labelText: 'Destination',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -93,7 +93,7 @@ class _addTransportScreenState extends State<addTransportScreen> {
                 TextFormField(
                   controller: _WhereFrom,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(labelText: 'Where From'),
+                  decoration: InputDecoration(labelText: 'Pick Up'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Destination Required';
