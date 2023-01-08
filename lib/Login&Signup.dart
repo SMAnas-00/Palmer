@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:palmer/AdminControls/AdminDash.dart';
+import 'package:palmer/AdminControls/addFlight.dart';
 import 'package:palmer/Cart/CartScreen.dart';
 import 'package:palmer/HomeScreen.dart';
+import 'package:palmer/Services/Tickets/Flight.dart';
 import 'package:palmer/Signup.dart';
 import 'package:palmer/WelcomeScreen.dart';
 import 'package:palmer/login_Screen.dart';
@@ -59,8 +61,10 @@ class _ScreenLoginSignupState extends State<ScreenLoginSignup> {
             SizedBox(height: 10),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => CartScreen()));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => addFlightScreen()));
                 },
                 child: Text('Practice'))
           ],

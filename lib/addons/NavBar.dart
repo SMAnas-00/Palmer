@@ -6,6 +6,7 @@ import 'package:palmer/HomeScreen.dart';
 import 'package:palmer/Login&Signup.dart';
 import 'package:palmer/Notifications_Screen.dart';
 import 'package:palmer/Services/Hotels/Hotels.dart';
+import 'package:palmer/Services/Tickets/Flight.dart';
 import 'package:palmer/Services/Transport/Transport.dart';
 import 'package:palmer/main.dart';
 
@@ -64,6 +65,8 @@ class _NavBarState extends State<NavBar> {
             title: Text('Todo'),
             onTap: () {},
           ),
+          Divider(),
+          SizedBox(height: 10),
           ListTile(
             leading: Icon(Icons.hotel_outlined),
             title: Text('Hotels'),
@@ -78,6 +81,14 @@ class _NavBarState extends State<NavBar> {
             onTap: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => TransportService()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.flight_takeoff_outlined),
+            title: Text('FLIGHT'),
+            onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => FlightScreen()));
             },
           ),
           Divider(),

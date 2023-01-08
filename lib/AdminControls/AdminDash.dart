@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:palmer/AdminControls/VeiwRequests.dart';
+import 'package:palmer/AdminControls/addFlight.dart';
 import 'package:palmer/AdminControls/addHotels.dart';
 import 'package:palmer/AdminControls/addTransport.dart';
 import 'package:palmer/AdminControls/viewUsers.dart';
@@ -124,6 +126,46 @@ class _AdminPanelState extends State<AdminPanel> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('Users',
+                        style: GoogleFonts.rubikBubbles(color: Colors.white))
+                  ],
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              print('REQUESTS');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => VeiwRequestScreen()));
+            },
+            child: Container(
+              color: Colors.teal[200],
+              padding: EdgeInsets.all(20),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('REQUESTS',
+                        style: GoogleFonts.rubikBubbles(color: Colors.white))
+                  ],
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              print('FLIGHTS');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => addFlightScreen()));
+            },
+            child: Container(
+              color: Colors.teal,
+              padding: EdgeInsets.all(20),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(' FLIGHT',
                         style: GoogleFonts.rubikBubbles(color: Colors.white))
                   ],
                 ),

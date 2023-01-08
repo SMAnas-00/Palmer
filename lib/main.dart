@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -56,23 +57,25 @@ class Buildingapp extends StatefulWidget {
 class _BuildingappState extends State<Buildingapp> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(builder: (context, snapshot) {
-      // check for Error
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return Center(child: CircularProgressIndicator());
-      } else if (snapshot.hasError) {
-        return Center(child: Text('Something Went Wrong!'));
-      } else if (snapshot.connectionState == ConnectionState.done) {
-        if (snapshot.hasData) {
-          print(snapshot.data.toString());
-          return MyHome();
-        }
+    return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          // check for Error
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Something Went Wrong!'));
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData) {
+              print(snapshot.data.toString());
+              return MyHome();
+            }
 
-        return Splash();
-      } else {
-        return const Splash();
-      }
-    });
+            return Splash();
+          } else {
+            return const Splash();
+          }
+        });
     ;
   }
 }

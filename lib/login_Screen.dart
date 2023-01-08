@@ -26,37 +26,54 @@ class _LoginState extends State<Login> {
   final passwordcontrol = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  login() async {
-    Future<UserCredential> usercred = auth.signInWithEmailAndPassword(
-        email: emailcontrol.text, password: passwordcontrol.text);
+  void sendResetPassword() {
+    User? user = FirebaseAuth.instance.currentUser;
+    FirebaseAuth.instance.sendPasswordResetEmail(email: emailcontrol.text);
+  }
 
-    final user = auth.currentUser;
+  // verifyEmail() {
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   if (!(user!.emailVerified)) {
+  //     user.sendEmailVerification();
+  //   } else {
+  //     login();
+  //   }
+  // }
 
-    final dbuser = await FirebaseFirestore.instance
-        .collection('app')
-        .doc('Users')
-        .collection('Signup')
-        .doc(user?.uid)
-        .get();
+  Future<void> login() async {
+    try {
+      auth.signInWithEmailAndPassword(
+          email: emailcontrol.text, password: passwordcontrol.text);
 
-    if (dbuser.data()?['Role'] == 'admin') {
-      Navigator.pushNamed(context, '/admindash');
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => AdminPanel()));
-      // Get.off(() => AdminPanel());
-    } else if (dbuser.data()?['Role'] == 'user') {
-      Navigator.pushNamed(context, '/userdash');
-      // Get.off(() => MyHome());
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => MyHome()));
-    } else {
-      Navigator.pop(context);
-      // Navigator.pushReplacement(context,
-      //     MaterialPageRoute(builder: (context) => ScreenLoginSignup()));
-      // Get.off(() => ScreenLoginSignup());
+      final user = auth.currentUser;
+
+      final dbuser = await FirebaseFirestore.instance
+          .collection('app')
+          .doc('Users')
+          .collection('Signup')
+          .doc(user?.uid)
+          .get();
+      if (user!.emailVerified) {
+        if (dbuser.data()?['Role'] == 'admin') {
+          Navigator.pushNamed(context, '/admindash');
+        } else if (dbuser.data()?['Role'] == 'user') {
+          Navigator.pushNamed(context, '/userdash');
+        }
+      } else {
+        user.sendEmailVerification();
+      }
+
+      emailcontrol.clear();
+      passwordcontrol.clear();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('USER NOT FOUND')));
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Wrong Password')));
+      }
     }
-    emailcontrol.clear();
-    passwordcontrol.clear();
   }
 
   @override
@@ -131,12 +148,21 @@ class _LoginState extends State<Login> {
                         },
                       ),
 
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                              onPressed: () => sendResetPassword(),
+                              child: Text('Forgot Password')),
+                        ],
+                      ),
+
                       SizedBox(
-                        height: 50,
+                        height: 30,
                       ),
                     ],
                   )),
-              // Submit Button
+              // Login Button
               RoundButton(
                 title: "LOGIN",
                 onTap: () {

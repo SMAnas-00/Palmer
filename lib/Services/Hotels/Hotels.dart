@@ -159,7 +159,8 @@ class _HotelsState extends State<Hotels> {
                                             reqId,
                                             document['name'],
                                             document['Hotel_id'],
-                                            document['Hotel_price']);
+                                            document['Hotel_price'],
+                                            document['Hotel_image']);
                                       },
                                       child: Text("Book Now"),
                                       style: ElevatedButton.styleFrom(

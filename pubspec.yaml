@@ -49,6 +49,8 @@ dependencies:
   google_fonts: ^3.0.1
   go_router: ^6.0.0
   regexed_validator: ^2.0.0+1
+  lottie: ^2.1.0
+  
 
 dev_dependencies:
   flutter_test:
