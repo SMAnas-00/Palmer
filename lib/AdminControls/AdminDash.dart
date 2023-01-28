@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:palmer/AdminControls/VeiwRequests.dart';
+import 'package:palmer/AdminControls/addAnimal.dart';
 import 'package:palmer/AdminControls/addFlight.dart';
 import 'package:palmer/AdminControls/addHotels.dart';
 import 'package:palmer/AdminControls/addTransport.dart';
@@ -166,6 +167,26 @@ class _AdminPanelState extends State<AdminPanel> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(' FLIGHT',
+                        style: GoogleFonts.rubikBubbles(color: Colors.white))
+                  ],
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              print('Animal Booking');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => addAnimalScreen()));
+            },
+            child: Container(
+              color: Colors.teal,
+              padding: EdgeInsets.all(20),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(' Animal',
                         style: GoogleFonts.rubikBubbles(color: Colors.white))
                   ],
                 ),

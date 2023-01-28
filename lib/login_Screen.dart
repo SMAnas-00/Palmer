@@ -56,7 +56,7 @@ class _LoginState extends State<Login> {
       if (user!.emailVerified) {
         if (dbuser.data()?['Role'] == 'admin') {
           Navigator.pushNamed(context, '/admindash');
-        } else if (dbuser.data()?['Role'] == 'user') {
+        } else {
           Navigator.pushNamed(context, '/userdash');
         }
       } else {

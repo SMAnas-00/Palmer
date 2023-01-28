@@ -142,6 +142,12 @@ class _CartScreenState extends State<CartScreen> {
                                               fontSize: 15,
                                             ),
                                           ),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.delete,
+                                                color: Colors.red[300],
+                                              ))
                                         ],
                                       ),
                                     ],
@@ -200,10 +206,20 @@ class _CartScreenState extends State<CartScreen> {
                                       ],
                                     ),
                                     Container(
-                                        child: Text(snapshot.data!
+                                        child: Column(
+                                      children: [
+                                        Text(snapshot.data!
                                                 .docs[index]['tansit_price']
                                                 .toString() +
-                                            '/-')),
+                                            '/-'),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              Icons.delete,
+                                              color: Colors.red[300],
+                                            ))
+                                      ],
+                                    )),
                                   ],
                                 ),
                               ),
@@ -258,10 +274,20 @@ class _CartScreenState extends State<CartScreen> {
                                       ],
                                     ),
                                     Container(
-                                        child: Text(snapshot.data!
+                                        child: Column(
+                                      children: [
+                                        Text(snapshot.data!
                                                 .docs[index]['flight_price']
                                                 .toString() +
-                                            '/-')),
+                                            '/-'),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              Icons.delete,
+                                              color: Colors.red[300],
+                                            ))
+                                      ],
+                                    )),
                                   ],
                                 ),
                               ),
