@@ -7,7 +7,7 @@ import 'package:palmer/AdminControls/addFlight.dart';
 import 'package:palmer/AdminControls/addHotels.dart';
 import 'package:palmer/AdminControls/addTransport.dart';
 import 'package:palmer/AdminControls/viewUsers.dart';
-import 'package:palmer/Login&Signup.dart';
+import 'package:palmer/Screens/Login&Signup.dart';
 
 class AdminPanel extends StatefulWidget {
   const AdminPanel({super.key});

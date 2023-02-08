@@ -1,14 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
-import 'package:palmer/AccountScreen.dart';
-import 'package:palmer/HomeScreen.dart';
-import 'package:palmer/Login&Signup.dart';
-import 'package:palmer/Notifications_Screen.dart';
+import 'package:palmer/Screens/AccountScreen.dart';
+import 'package:palmer/Screens/HomeScreen.dart';
+import 'package:palmer/Screens/Login&Signup.dart';
+import 'package:palmer/Screens/Notifications_Screen.dart';
 import 'package:palmer/Services/Hotels/Hotels.dart';
 import 'package:palmer/Services/Tickets/Flight.dart';
 import 'package:palmer/Services/Transport/Transport.dart';
 import 'package:palmer/main.dart';
+import 'package:palmer/Screens/tripScreen.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -67,30 +68,30 @@ class _NavBarState extends State<NavBar> {
           ),
           Divider(),
           SizedBox(height: 10),
-          ListTile(
-            leading: Icon(Icons.hotel_outlined),
-            title: Text('Hotels'),
-            onTap: () {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Hotels()));
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.hotel_outlined),
+          //   title: Text('Hotels'),
+          //   onTap: () {
+          //     Navigator.pushReplacement(
+          //         context, MaterialPageRoute(builder: (context) => Hotels()));
+          //   },
+          // ),
           ListTile(
             leading: Icon(Icons.emoji_transportation_outlined),
-            title: Text('Transport'),
+            title: Text('BOOK YOUR TRIP'),
             onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => TransportService()));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => BookTrip()));
             },
           ),
-          ListTile(
-            leading: Icon(Icons.flight_takeoff_outlined),
-            title: Text('FLIGHT'),
-            onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => FlightScreen()));
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.flight_takeoff_outlined),
+          //   title: Text('FLIGHT'),
+          //   onTap: () {
+          //     Navigator.pushReplacement(context,
+          //         MaterialPageRoute(builder: (context) => FlightScreen()));
+          //   },
+          // ),
           Divider(),
           SizedBox(
             height: 20.0,

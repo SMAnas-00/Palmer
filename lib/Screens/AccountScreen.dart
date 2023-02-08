@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:palmer/addons/NavBar.dart';
-import 'addons/SearchBar.dart';
+import '../addons/SearchBar.dart';
 import 'login_Screen.dart';
 
 class account_Page extends StatefulWidget {

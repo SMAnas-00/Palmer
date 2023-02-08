@@ -7,12 +7,12 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:palmer/AdminControls/AdminDash.dart';
 import 'package:palmer/Cart/CartScreen.dart';
-import 'package:palmer/HomeScreen.dart';
-import 'package:palmer/Login&Signup.dart';
-import 'package:palmer/Signup.dart';
-import 'package:palmer/WelcomeScreen.dart';
+import 'package:palmer/Screens/HomeScreen.dart';
+import 'package:palmer/Screens/Login&Signup.dart';
+import 'package:palmer/Screens/Signup.dart';
+import 'package:palmer/Screens/WelcomeScreen.dart';
 
-import 'login_Screen.dart';
+import 'Screens/login_Screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

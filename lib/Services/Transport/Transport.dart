@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:palmer/AdminControls/addTransport.dart';
 
-import '../../HomeScreen.dart';
+import '../../Screens/HomeScreen.dart';
 import '../../addons/NavBar.dart';
 import '../Request.dart';
 

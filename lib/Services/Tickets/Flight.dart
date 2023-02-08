@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../HomeScreen.dart';
+import '../../Screens/HomeScreen.dart';
 import '../Request.dart';
 
 class FlightScreen extends StatefulWidget {

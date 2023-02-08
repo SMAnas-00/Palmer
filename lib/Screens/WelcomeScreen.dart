@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:palmer/Login&Signup.dart';
+import 'package:palmer/Screens/Login&Signup.dart';
 
 import 'HomeScreen.dart';
 
