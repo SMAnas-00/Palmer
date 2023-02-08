@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:palmer/HomeScreen.dart';
+import 'package:palmer/Screens/HomeScreen.dart';
 import 'package:palmer/AdminControls/addHotels.dart';
 import 'package:palmer/Services/Request.dart';
 import 'package:palmer/addons/NavBar.dart';
