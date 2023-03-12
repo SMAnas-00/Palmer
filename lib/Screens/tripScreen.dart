@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palmer/Screens/HomeScreen.dart';
+import 'package:palmer/Services/Tickets/Flight.dart';
 
 class BookTrip extends StatelessWidget {
   const BookTrip({super.key});
@@ -23,7 +24,14 @@ class BookTrip extends StatelessWidget {
           margin: EdgeInsets.only(top: 120),
           child: Column(
             children: [
-              ElevatedButton(onPressed: () {}, child: Text('UMMRAHH')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FlightScreen()));
+                  },
+                  child: Text('UMMRAHH')),
               ElevatedButton(onPressed: () {}, child: Text('Hajj'))
             ],
           ),

@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:palmer/AdminControls/AdminDash.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import '../main.dart';
 
@@ -13,6 +18,10 @@ class addFlightScreen extends StatefulWidget {
 }
 
 class _addFlightScreenState extends State<addFlightScreen> {
+  File? image;
+  final picker = ImagePicker();
+  String imageUrl = '';
+  FirebaseAuth user = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final _formKey = GlobalKey<FormState>();
   final _departure = TextEditingController();
@@ -20,6 +29,7 @@ class _addFlightScreenState extends State<addFlightScreen> {
   final _flightprice = TextEditingController();
   final _flightid = TextEditingController();
   final _flightname = TextEditingController();
+  var did = DateTime.now().millisecondsSinceEpoch;
 
   addFlight() async {
     _formKey.currentState!.save();
@@ -28,20 +38,22 @@ class _addFlightScreenState extends State<addFlightScreen> {
 
       print('Data for login ');
 
-      var did = DateTime.now().millisecondsSinceEpoch;
-
       try {
         await firestore
             .collection('app')
             .doc('Services')
             .collection('Flight')
-            .doc('$did')
+            .doc('${user.currentUser!.uid}$did')
             .set({
-          'airline_name': _flightname.text,
-          'departure': _departure.text,
-          'destination': _destination.text,
+          'airline_name': _flightname.text.toUpperCase(),
+          'departure': _departure.text.toUpperCase(),
+          'destination': _destination.text.toUpperCase(),
           'ticket_price': int.parse(_flightprice.text),
-          'flight_id': did.toString()
+          'admin_id': user.currentUser!.uid,
+          'flight_imageURL': imageUrl,
+        });
+        setState(() {
+          imageUrl = '';
         });
       } on FirebaseException catch (e) {
         displayMessage(e.toString());
@@ -51,6 +63,29 @@ class _addFlightScreenState extends State<addFlightScreen> {
     _destination.clear();
     _flightname.clear();
     _flightprice.clear();
+  }
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  Future<void> setImage() async {
+    final image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 512,
+      maxHeight: 512,
+      imageQuality: 75,
+    );
+    final user = auth.currentUser;
+    firebase_storage.Reference ref =
+        firebase_storage.FirebaseStorage.instance.ref('/flightimg/$did');
+    await ref.putFile(File(image!.path));
+    ref.getDownloadURL().then((value) {
+      setState(() {
+        imageUrl = value;
+      });
+      displayMessage("image uploaded successfully");
+    }).onError((error, stackTrace) {
+      displayMessage(error.toString());
+    });
   }
 
   @override
@@ -68,7 +103,7 @@ class _addFlightScreenState extends State<addFlightScreen> {
       appBar: AppBar(
         leading: BackArrow,
         centerTitle: true,
-        title: Text('Book Your Transport',
+        title: Text('ADD FLIGHT',
             style: TextStyle(color: Color.fromARGB(255, 29, 165, 153))),
         backgroundColor: Colors.white,
       ),
@@ -131,6 +166,57 @@ class _addFlightScreenState extends State<addFlightScreen> {
                 ),
                 SizedBox(
                   height: 30,
+                ),
+                SizedBox(
+                  height: 120,
+                  width: 120,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    fit: StackFit.expand,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.teal[300],
+                            borderRadius: BorderRadius.circular(100.0)),
+                        child: Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: Colors.teal[300],
+                                borderRadius: BorderRadius.circular(100)),
+                            child: imageUrl == ""
+                                ? ClipOval(
+                                    child: SizedBox.fromSize(
+                                      size: const Size.fromRadius(48.0),
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.teal[300],
+                                      ),
+                                    ),
+                                  )
+                                : ClipOval(
+                                    child: SizedBox.fromSize(
+                                        size: const Size.fromRadius(48.0),
+                                        child: Image.network(imageUrl)),
+                                  )),
+                      ),
+                      Positioned(
+                          bottom: 0,
+                          right: -25,
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              setImage();
+                            },
+                            elevation: 2.0,
+                            fillColor: Colors.white,
+                            padding: const EdgeInsets.all(15.0),
+                            shape: const CircleBorder(),
+                            child: const Icon(
+                              Icons.camera_alt_outlined,
+                              color: Colors.teal,
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: 30,

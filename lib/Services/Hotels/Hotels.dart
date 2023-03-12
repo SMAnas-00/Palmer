@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:palmer/Screens/HomeScreen.dart';
 import 'package:palmer/AdminControls/addHotels.dart';
+import 'package:palmer/Services/Hotels/HotelDetails.dart';
 import 'package:palmer/Services/Request.dart';
+import 'package:palmer/Services/Tickets/Flight.dart';
+import 'package:palmer/Services/Transport/Transport.dart';
 import 'package:palmer/addons/NavBar.dart';
 
 class Hotels extends StatefulWidget {
@@ -37,12 +40,27 @@ class _HotelsState extends State<Hotels> {
         color: Color.fromARGB(255, 255, 194, 101),
         onPressed: () {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MyHome()));
+              context, MaterialPageRoute(builder: (context) => FlightScreen()));
         },
         icon: Icon(Icons.arrow_back));
     return Scaffold(
       appBar: AppBar(
         leading: BackArrow,
+        actions: [
+          GestureDetector(
+            child: Container(
+                margin: EdgeInsets.only(right: 30),
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'SKIP',
+                  style: TextStyle(color: Colors.teal),
+                )),
+            onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => TransportService()));
+            },
+          )
+        ],
         automaticallyImplyLeading: true,
         title: Text(
           'Hotels',
@@ -64,7 +82,7 @@ class _HotelsState extends State<Hotels> {
               itemCount: listqureysnap.length,
               itemBuilder: (context, index) {
                 QueryDocumentSnapshot document = listqureysnap[index];
-                final img = document['Hotel_image'].toString();
+                final img = document['hotel_imageURL'];
                 return Column(
                   children: [
                     Card(
@@ -153,14 +171,42 @@ class _HotelsState extends State<Hotels> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
-                                        final reqId =
-                                            '${auth.currentUser!.uid}';
-                                        request.Hotelreq(
-                                            reqId,
-                                            document['name'],
-                                            document['Hotel_id'],
-                                            document['Hotel_price'],
-                                            document['Hotel_image']);
+                                        String name =
+                                            snapshot.data!.docs[index]['name'];
+                                        String location = snapshot.data!
+                                            .docs[index]['Hotel_location'];
+                                        String rating =
+                                            snapshot.data!.docs[index]['Stars'];
+                                        String capacity = snapshot
+                                            .data!.docs[index]['Room_capacity'];
+                                        int HotelPrice = snapshot
+                                            .data!.docs[index]['Hotel_price'];
+                                        String hotel_imgURL = snapshot.data!
+                                            .docs[index]['hotel_imageURL'];
+                                        String hotelId =
+                                            snapshot.data!.docs[index].id;
+
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HotelsDetails(
+                                                        hotelName: name,
+                                                        hotelLocation: location,
+                                                        hotelRating: rating,
+                                                        hotelImageURL:
+                                                            hotel_imgURL,
+                                                        hotelcapacity: capacity,
+                                                        hotelPrice: HotelPrice,
+                                                        hotelid: hotelId)));
+                                        // final reqId =
+                                        //     '${auth.currentUser!.uid}';
+                                        // request.Hotelreq(
+                                        //     reqId,
+                                        //     document['name'],
+                                        //     document['Hotel_id'],
+                                        //     document['Hotel_price'],
+                                        //     document['Hotel_image']);
                                       },
                                       child: Text("Book Now"),
                                       style: ElevatedButton.styleFrom(

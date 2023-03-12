@@ -3,49 +3,52 @@ import 'package:firebase_core/firebase_core.dart';
 
 class Request {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  Hotelreq(String reqid, hotelname, hotelid, hotelprice, hotelimg) {
+  Hotelreq(String adminId, cusId, hotelname, hotelid, hotelprice, hotelimg) {
     firestore
         .collection('app')
         .doc('Services')
         .collection('requests')
-        .doc('${reqid}' + '${DateTime.now().millisecondsSinceEpoch}')
+        .doc('${cusId}${DateTime.now().millisecondsSinceEpoch}')
         .set({
-      'customer_id': reqid,
+      'customer_id': cusId,
       'hotel_name': hotelname,
       'hotel_id': hotelid,
       'hotel_price': hotelprice,
       'hotel_image': hotelimg,
+      'adminId': adminId,
       'status': 'Pending'
     });
   }
 
-  Transreq(String reqid, transittype, transitid, transitprice, transitpick,
-      transitdrop) {
+  Transreq(String adminId, cusId, transittype, transitid, transitprice,
+      transitpick, transitdrop) {
     firestore
         .collection('app')
         .doc('Services')
         .collection('requests')
-        .doc(reqid)
+        .doc('${cusId}${DateTime.now().millisecondsSinceEpoch}')
         .update({
-      'customer_id': reqid,
+      'customer_id': cusId,
       'transit_type': transittype,
       'transit_id': transitid,
       'tansit_price': transitprice,
       'transit_pick': transitpick,
       'transit_drop': transitdrop,
+      'adminId': adminId,
       'status': 'pending'
     });
   }
 
-  Ticketreq(
-      String reqId, flightname, departure, destination, ticketprice, flightid) {
-    firestore
+  Ticketreq(String cusId, adminId, flightname, departure, destination,
+      ticketprice, flightid) async {
+    await firestore
         .collection('app')
         .doc('Services')
         .collection('requests')
-        .doc(reqId)
+        .doc('$cusId${DateTime.now()}')
         .update({
-      'customer_id': reqId,
+      'adminId': adminId,
+      'customer_id': cusId,
       'airline_name': flightname,
       'flight_id': flightid,
       'flight_price': ticketprice,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:palmer/Screens/HomeScreen.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
@@ -21,7 +22,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             Text('Booking Successfull'),
             SizedBox(height: 40),
             ElevatedButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => MyHome())),
               child: Text('BACK'),
               style:
                   ElevatedButton.styleFrom(backgroundColor: Colors.teal[300]),

@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:palmer/AdminControls/addTransport.dart';
+import 'package:palmer/Cart/CartScreen.dart';
+import 'package:palmer/Services/Transport/TransportDetails.dart';
 
 import '../../Screens/HomeScreen.dart';
 import '../../addons/NavBar.dart';
@@ -43,6 +45,21 @@ class _TransportServiceState extends State<TransportService> {
     return Scaffold(
       appBar: AppBar(
         leading: BackArrow,
+        actions: [
+          GestureDetector(
+            child: Container(
+                margin: EdgeInsets.only(right: 30),
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'CHECKOUT',
+                  style: TextStyle(color: Colors.teal),
+                )),
+            onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => CartScreen()));
+            },
+          )
+        ],
         automaticallyImplyLeading: true,
         title: Text(
           'Transport',
@@ -102,15 +119,31 @@ class _TransportServiceState extends State<TransportService> {
                                           backgroundColor: Colors.teal[300],
                                           minimumSize: Size(15, 10)),
                                       onPressed: () {
-                                        final reqId =
-                                            '${auth.currentUser!.uid}';
-                                        request.Transreq(
-                                            reqId,
-                                            document['Transport_type'],
-                                            document['Trans_id'],
-                                            document['Fair'],
-                                            document['Pick_up'],
-                                            document['Destination']);
+                                        String type = snapshot.data!.docs[index]
+                                            ['Transport_type'];
+                                        String destination = snapshot
+                                            .data!.docs[index]['Destination'];
+                                        String pickup = snapshot
+                                            .data!.docs[index]['Pick_up'];
+                                        int fareprice =
+                                            snapshot.data!.docs[index]['Fair'];
+                                        String trans_imgURL = snapshot.data!
+                                            .docs[index]['transport_imageURL'];
+                                        String transId =
+                                            snapshot.data!.docs[index].id;
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TransportDetails(
+                                                      transtype: type,
+                                                      destination: destination,
+                                                      pickup: pickup,
+                                                      trans_imgURL:
+                                                          trans_imgURL,
+                                                      fareprice: fareprice,
+                                                      transId: transId,
+                                                    )));
                                       },
                                       child: Text('Book Now'))
                                 ],

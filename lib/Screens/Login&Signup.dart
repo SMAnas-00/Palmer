@@ -7,6 +7,10 @@ import 'package:palmer/Services/Tickets/Flight.dart';
 import 'package:palmer/Screens/Signup.dart';
 import 'package:palmer/Screens/WelcomeScreen.dart';
 import 'package:palmer/Screens/login_Screen.dart';
+import 'package:video_player/video_player.dart';
+
+import 'distanceCAL.dart';
+import 'guideScreen.dart';
 
 class ScreenLoginSignup extends StatefulWidget {
   const ScreenLoginSignup({super.key});
@@ -58,15 +62,13 @@ class _ScreenLoginSignupState extends State<ScreenLoginSignup> {
                 child: Text('SIGNUP'),
               ),
             ),
-            // SizedBox(height: 10),
-            // ElevatedButton(
-            //     onPressed: () {
-            //       Navigator.pushReplacement(
-            //           context,
-            //           MaterialPageRoute(
-            //               builder: (context) => addFlightScreen()));
-            //     },
-            //     child: Text('Practice'))
+            SizedBox(height: 10),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => mapGoogle()));
+                },
+                child: Text('Practice'))
           ],
         ),
       ),

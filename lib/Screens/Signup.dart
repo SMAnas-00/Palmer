@@ -19,7 +19,7 @@ class _SignUpState extends State<SignUp> {
   final _password1_control = TextEditingController();
   final _password2_control = TextEditingController();
   final _email_control = TextEditingController();
-  final _contact_control = TextEditingController();
+  final _contact_control = TextEditingController(text: "+92");
   final _address_control = TextEditingController();
 
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -132,10 +132,12 @@ class _SignUpState extends State<SignUp> {
                           prefixIcon: Icon(Icons.person)),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Enter First Name';
-                        } else {
-                          return null;
+                          return "Enter your name";
                         }
+                        if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                          return "Enter correct name";
+                        }
+                        return null;
                       },
                     ),
                     SizedBox(height: 12.0),
@@ -149,10 +151,12 @@ class _SignUpState extends State<SignUp> {
                           prefixIcon: Icon(Icons.person_add)),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Enter Last Name';
-                        } else {
-                          return null;
+                          return "Enter your name";
                         }
+                        if (!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                          return "Enter correct name";
+                        }
+                        return null;
                       },
                     ),
                     SizedBox(height: 12.0),
@@ -166,27 +170,39 @@ class _SignUpState extends State<SignUp> {
                           prefixIcon: Icon(Icons.contact_phone_rounded)),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Enter Contact';
-                        } else {
-                          return null;
+                          return "Enter phone number";
                         }
+                        if (!RegExp(r'(^(?:[+0]9)?[0-9]{11}$)')
+                            .hasMatch(value)) {
+                          return "Enter correct number";
+                        }
+                        if (value.startsWith("0")) {
+                          return "Please start with country code";
+                        }
+                        return null;
                       },
                     ),
                     SizedBox(height: 12.0),
 
                     // Email feild =======================
                     TextFormField(
-                      controller: _email_control,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                          hintText: 'Email',
-                          prefixIcon: Icon(Icons.email_rounded)),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (email) =>
-                          email != null && !EmailValidator.validate(email)
-                              ? 'Enter a valid Email'
-                              : null,
-                    ),
+                        controller: _email_control,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                            hintText: 'Email',
+                            prefixIcon: Icon(Icons.email_rounded)),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter your email';
+                          }
+                          if (!RegExp(
+                                  r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+$')
+                              .hasMatch(value)) {
+                            return 'Enter correct email';
+                          }
+                          return null;
+                        }),
                     SizedBox(height: 12.0),
 
                     // Password feild =======================
@@ -206,17 +222,21 @@ class _SignUpState extends State<SignUp> {
 
                     // Retype Password feild =======================
                     TextFormField(
-                      controller: _password2_control,
-                      keyboardType: TextInputType.text,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          hintText: 'Retype Password',
-                          prefixIcon: Icon(Icons.password_rounded)),
-                      validator: (value) =>
-                          value.toString() == _password1_control.text
-                              ? null
-                              : 'Incorrect Password',
-                    ),
+                        controller: _password2_control,
+                        keyboardType: TextInputType.text,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                            hintText: 'Retype Password',
+                            prefixIcon: Icon(Icons.password_rounded)),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please confirm password";
+                          }
+                          if (value != _password1_control.text) {
+                            return "Password does not match";
+                          }
+                          return null;
+                        }),
                     SizedBox(height: 12.0),
 
                     // address feild =============

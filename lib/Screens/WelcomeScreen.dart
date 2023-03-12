@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:palmer/Screens/Login&Signup.dart';
+import 'package:palmer/Services/FirebaseService.dart';
 
 import 'HomeScreen.dart';
 
@@ -14,18 +15,20 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  FirebaseService _firebaseService = FirebaseService();
   @override
   void initState() {
     super.initState();
-    _navigatetohome();
+    _firebaseService.isLogin(context);
+    // _navigatetohome();
     // _choice();
   }
 
-  _navigatetohome() async {
-    await Future.delayed(Duration(milliseconds: 2000), () {});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => ScreenLoginSignup()));
-  }
+  // _navigatetohome() async {
+  //   await Future.delayed(Duration(milliseconds: 2000), () {});
+  //   Navigator.pushReplacement(
+  //       context, MaterialPageRoute(builder: (context) => ScreenLoginSignup()));
+  // }
 
   // _choice() async {
   //   await StreamBuilder<User?>(

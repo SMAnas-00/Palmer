@@ -37,29 +37,29 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-  // List Sliderimglist = [
-  //   {"id": 1, "image_path": 'images/img_slider1.jpg'},
-  //   {"id": 2, "image_path": 'images/img_slider2.jpg'},
-  //   {"id": 3, "image_path": 'images/img_slider3.jpg'}
-  // ];
+  List Sliderimglist = [
+    {"id": 1, "image_path": 'images/img_slider1.jpg'},
+    {"id": 2, "image_path": 'images/img_slider2.jpg'},
+    {"id": 3, "image_path": 'images/img_slider3.jpg'}
+  ];
 
-  // final CarouselController carouselControl = CarouselController();
-  late PageController _pageController;
+  final CarouselController carouselControl = CarouselController();
+  // late PageController _pageController;
   int currentindex = 0;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _pageController =
-        PageController(initialPage: currentindex, viewportFraction: 0.8);
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   _pageController =
+  //       PageController(initialPage: currentindex, viewportFraction: 0.8);
+  // }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _pageController.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _pageController.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,63 +98,63 @@ class _MyHomeState extends State<MyHome> {
           child: Column(
             children: [
               // SLider Working =================
-              // Stack(
-              //   children: [
-              //     InkWell(
-              //       onTap: () {
-              //         print(currentindex);
-              //       },
-              //       child: CarouselSlider(
-              //         items: Sliderimglist.map((item) => Image.asset(
-              //               item['image_path'],
-              //               fit: BoxFit.fill,
-              //               width: double.infinity,
-              //             )).toList(),
-              //         carouselController: carouselControl,
-              //         options: CarouselOptions(
-              //           scrollPhysics: const BouncingScrollPhysics(),
-              //           autoPlay: true,
-              //           autoPlayAnimationDuration: Duration(milliseconds: 2000),
-              //           enableInfiniteScroll: true,
-              //           aspectRatio: 2.5,
-              //           viewportFraction: 1,
-              //           onPageChanged: (index, reason) {
-              //             setState(() {
-              //               currentindex = index;
-              //             });
-              //           },
-              //         ),
-              //       ),
-              //     ),
-              //     Positioned(
-              //         bottom: 10.0,
-              //         left: 0,
-              //         right: 0,
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.center,
-              //           children: Sliderimglist.asMap().entries.map((entry) {
-              //             // print(entry);
-              //             // print(entry.key);
-              //             return GestureDetector(
-              //               onTap: () =>
-              //                   carouselControl.animateToPage(entry.key),
-              //               child: Container(
-              //                 width: currentindex == entry.key ? 17 : 7,
-              //                 height: 7.0,
-              //                 margin: const EdgeInsets.symmetric(
-              //                   horizontal: 3.0,
-              //                 ),
-              //                 decoration: BoxDecoration(
-              //                     borderRadius: BorderRadius.circular(10),
-              //                     color: currentindex == entry.key
-              //                         ? Color.fromARGB(255, 255, 194, 101)
-              //                         : Colors.teal),
-              //               ),
-              //             );
-              //           }).toList(),
-              //         )),
-              //   ],
-              // ),
+              Stack(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      print(currentindex);
+                    },
+                    child: CarouselSlider(
+                      items: Sliderimglist.map((item) => Image.asset(
+                            item['image_path'],
+                            fit: BoxFit.fill,
+                            width: double.infinity,
+                          )).toList(),
+                      carouselController: carouselControl,
+                      options: CarouselOptions(
+                        scrollPhysics: const BouncingScrollPhysics(),
+                        autoPlay: true,
+                        autoPlayAnimationDuration: Duration(milliseconds: 2000),
+                        enableInfiniteScroll: true,
+                        aspectRatio: 2.5,
+                        viewportFraction: 1,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            currentindex = index;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                      bottom: 10.0,
+                      left: 0,
+                      right: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: Sliderimglist.asMap().entries.map((entry) {
+                          // print(entry);
+                          // print(entry.key);
+                          return GestureDetector(
+                            onTap: () =>
+                                carouselControl.animateToPage(entry.key),
+                            child: Container(
+                              width: currentindex == entry.key ? 17 : 7,
+                              height: 7.0,
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 3.0,
+                              ),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: currentindex == entry.key
+                                      ? Color.fromARGB(255, 255, 194, 101)
+                                      : Colors.teal),
+                            ),
+                          );
+                        }).toList(),
+                      )),
+                ],
+              ),
 
               SizedBox(
                 height: 60.0,
@@ -173,7 +173,7 @@ class _MyHomeState extends State<MyHome> {
                       )),
                   // ==== Text Section in About ========
                   Container(
-                    margin: EdgeInsets.only(right: 70),
+                    margin: EdgeInsets.only(right: 50),
                     child: Column(
                       children: [
                         Container(

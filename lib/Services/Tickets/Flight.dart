@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:palmer/Screens/tripScreen.dart';
+import 'package:palmer/Services/Hotels/Hotels.dart';
+import 'package:palmer/Services/Tickets/FlightDetails.dart';
 
 import '../../Screens/HomeScreen.dart';
 import '../Request.dart';
@@ -29,7 +32,7 @@ class _FlightScreenState extends State<FlightScreen> {
         color: Colors.teal,
         onPressed: () {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MyHome()));
+              context, MaterialPageRoute(builder: (context) => BookTrip()));
         },
         icon: Icon(Icons.arrow_back));
     return Scaffold(
@@ -40,6 +43,23 @@ class _FlightScreenState extends State<FlightScreen> {
             'FLIGHTS',
             style: TextStyle(color: Colors.teal[300]),
           ),
+          actions: [
+            GestureDetector(
+              child: Container(
+                margin: EdgeInsets.only(right: 30),
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'SKIP',
+                  style: TextStyle(
+                      color: Colors.teal, fontWeight: FontWeight.bold),
+                ),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => Hotels()));
+              },
+            )
+          ],
         ),
         body: StreamBuilder(
           stream: Flightitems.snapshots(),
@@ -60,8 +80,21 @@ class _FlightScreenState extends State<FlightScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(snapshot.data!.docs[index]
-                                          ['airline_name']),
+                                      Row(
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            child: Image.network(
+                                              snapshot.data!.docs[index]
+                                                  ['flight_imageURL'],
+                                              height: 70,
+                                              width: 120,
+                                            ),
+                                          ),
+                                          Text(snapshot.data!.docs[index]
+                                              ['airline_name']),
+                                        ],
+                                      ),
                                       Text(
                                         snapshot.data!
                                                 .docs[index]['ticket_price']
@@ -84,21 +117,41 @@ class _FlightScreenState extends State<FlightScreen> {
                                               ['destination']),
                                       ElevatedButton(
                                           onPressed: () {
-                                            final reqid =
-                                                '${auth.currentUser!.uid}';
-                                            request.Ticketreq(
-                                                reqid,
-                                                snapshot.data!.docs[index]
-                                                    ['airline_name'],
-                                                snapshot.data!.docs[index]
-                                                    ['departure'],
-                                                snapshot.data!.docs[index]
-                                                    ['destination'],
-                                                snapshot.data!
-                                                    .docs[index]['ticket_price']
-                                                    .toString(),
-                                                snapshot.data!.docs[index]
-                                                    ['flight_id']);
+                                            String airline_name = snapshot.data!
+                                                .docs[index]['airline_name'];
+                                            String departure = snapshot
+                                                .data!.docs[index]['departure'];
+                                            String destination = snapshot.data!
+                                                .docs[index]['destination'];
+                                            String flightId =
+                                                snapshot.data!.docs[index].id;
+                                            int flightPrice = snapshot.data!
+                                                .docs[index]['ticket_price'];
+                                            String adminId = snapshot
+                                                .data!.docs[index]['admin_id'];
+                                            String flight_imageURL = snapshot
+                                                .data!
+                                                .docs[index]['flight_imageURL'];
+                                            print(
+                                                'Flight >>>>>>>>>>>>>>>>>${flightId}');
+
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        FlightDetails(
+                                                          airline_name:
+                                                              airline_name,
+                                                          departure: departure,
+                                                          destination:
+                                                              destination,
+                                                          flight_id: flightId,
+                                                          flightPrice:
+                                                              flightPrice,
+                                                          admin_id: adminId,
+                                                          flight_imageURL:
+                                                              flight_imageURL,
+                                                        )));
                                           },
                                           child: Text('Book Now'))
                                     ],
