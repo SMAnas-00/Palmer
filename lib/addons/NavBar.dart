@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:palmer/Screens/AccountScreen.dart';
 import 'package:palmer/Screens/HomeScreen.dart';
 import 'package:palmer/Screens/Login&Signup.dart';
+import 'package:palmer/Screens/distanceCAL.dart';
+import 'package:palmer/Screens/guideScreen.dart';
 import 'package:palmer/main.dart';
 import 'package:palmer/Screens/tripScreen.dart';
+
+import '../Screens/map.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -153,6 +157,22 @@ class _NavBarState extends State<NavBar> {
             GestureDetector(
               onTap: () {
                 Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const guideScreen()));
+              },
+              child: const ListTile(
+                leading: Icon(
+                  Icons.help_center,
+                  color: Colors.teal,
+                ),
+                title: Text("GUIDE"),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const BookTrip()));
               },
@@ -162,6 +182,20 @@ class _NavBarState extends State<NavBar> {
                   color: Colors.teal,
                 ),
                 title: Text("BOOK YOUR TRIP"),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => GMap()));
+              },
+              child: const ListTile(
+                leading: Icon(
+                  Icons.map,
+                  color: Colors.teal,
+                ),
+                title: Text("FIND"),
               ),
             ),
             GestureDetector(
