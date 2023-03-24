@@ -39,7 +39,7 @@ class _mapGoogleState extends State<mapGoogle> {
     LatLng(24.901240, 67.116426),
   ];
   final Set<Polyline> _polylines = {};
-  
+
   List<Marker> _list = [
     Marker(
         markerId: MarkerId('1'),
