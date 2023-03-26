@@ -10,6 +10,8 @@ import 'package:palmer/Screens/guideScreen.dart';
 import 'package:palmer/main.dart';
 import 'package:palmer/Screens/tripScreen.dart';
 
+import '../Screens/AnimalBook.dart';
+import '../Screens/example.dart';
 import '../Screens/map.dart';
 
 class NavBar extends StatefulWidget {
@@ -187,8 +189,8 @@ class _NavBarState extends State<NavBar> {
             GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => GMap()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MapView()));
               },
               child: const ListTile(
                 leading: Icon(
@@ -199,7 +201,12 @@ class _NavBarState extends State<NavBar> {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AnimalBookingPage()));
+              },
               child: const ListTile(
                 leading: Icon(
                   Icons.settings,

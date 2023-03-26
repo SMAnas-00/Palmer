@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -13,11 +14,25 @@ import 'package:palmer/Screens/Login&Signup.dart';
 import 'package:palmer/Screens/Signup.dart';
 import 'package:palmer/Screens/WelcomeScreen.dart';
 import 'package:palmer/Screens/forgetPasswordScreen.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 import 'Screens/login_Screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+
+  const InitializationSettings initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+  // Initialize the timezone.
+  tz.initializeTimeZones();
   await Firebase.initializeApp();
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
