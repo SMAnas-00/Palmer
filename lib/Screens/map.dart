@@ -106,6 +106,10 @@ import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 import 'package:maps_toolkit/maps_toolkit.dart' as map_tool;
 import 'HomeScreen.dart';
+import 'example.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class MapView extends StatefulWidget {
   @override
@@ -115,6 +119,8 @@ class MapView extends StatefulWidget {
 class _MapViewState extends State<MapView> {
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
   late GoogleMapController mapController;
+
+  NOTIFY notify = NOTIFY();
 
   late Position _currentPosition;
   String _currentAddress = '';
@@ -211,7 +217,7 @@ class _MapViewState extends State<MapView> {
         .then((Position position) async {
       setState(() {
         _currentPosition = position;
-        checkUpdatedLocation(_currentPosition as LatLng);
+
         print('CURRENT POS: $_currentPosition');
         mapController.animateCamera(
           CameraUpdate.newCameraPosition(
@@ -221,6 +227,7 @@ class _MapViewState extends State<MapView> {
             ),
           ),
         );
+        checkUpdatedLocation(_currentPosition as LatLng);
       });
       await _getAddress();
     }).catchError((e) {
@@ -484,6 +491,12 @@ class _MapViewState extends State<MapView> {
           map_tool.LatLng(pointLatLng.latitude, pointLatLng.longitude),
           convatedpolygonpoints,
           false);
+      if (isInselected == true) {
+        notify._scheduleNotification;
+      }
+      if (isInselected == false) {
+        notify._scheduleNotification2;
+      }
     });
   }
 
@@ -784,4 +797,52 @@ class _MapViewState extends State<MapView> {
 
 class Secrets {
   static const API_KEY = 'AIzaSyDNzkszHrT2L0zwdhK0DzVK46aqO7n5lxk';
+}
+
+class NOTIFY {
+  Future<void> _scheduleNotification() async {
+    // Define the notification details.
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails('01', 'ALERT',
+            channelDescription: 'you are in BOUNDARY',
+            importance: Importance.max,
+            priority: Priority.high,
+            showWhen: false);
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    // Schedule the notification.
+    await FlutterLocalNotificationsPlugin().zonedSchedule(
+        0,
+        'ALERT',
+        'YOU ARE IN THE BOUNDARY',
+        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+        platformChannelSpecifics,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
+  }
+
+  Future<void> _scheduleNotification2() async {
+    // Define the notification details.
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails('02', 'ALERT',
+            channelDescription: 'you are OUTSIDE in the Boundary',
+            importance: Importance.max,
+            priority: Priority.high,
+            showWhen: false);
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    // Schedule the notification.
+    await FlutterLocalNotificationsPlugin().zonedSchedule(
+        0,
+        'ALERT',
+        'YOU ARE OUTSIDE THE BOUNDARY',
+        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+        platformChannelSpecifics,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
+  }
 }

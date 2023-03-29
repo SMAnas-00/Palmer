@@ -11,6 +11,7 @@ import 'package:palmer/Screens/login_Screen.dart';
 import 'package:video_player/video_player.dart';
 
 import 'distanceCAL.dart';
+import 'example.dart';
 import 'guideScreen.dart';
 
 class ScreenLoginSignup extends StatefulWidget {
@@ -64,12 +65,12 @@ class _ScreenLoginSignupState extends State<ScreenLoginSignup> {
               ),
             ),
             SizedBox(height: 10),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => MapView()));
-                },
-                child: Text('Practice'))
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.pushReplacement(context,
+            //           MaterialPageRoute(builder: (context) => FlightBooking()));
+            //     },
+            //     child: Text('Practice'))
           ],
         ),
       ),

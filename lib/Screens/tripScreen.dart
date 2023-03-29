@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:palmer/Screens/AnimalBook.dart';
 import 'package:palmer/Screens/HomeScreen.dart';
 import 'package:palmer/Services/Tickets/Flight.dart';
 
@@ -32,7 +33,14 @@ class BookTrip extends StatelessWidget {
                             builder: (context) => FlightScreen()));
                   },
                   child: Text('UMMRAHH')),
-              ElevatedButton(onPressed: () {}, child: Text('Hajj'))
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AnimalBookingPage()));
+                  },
+                  child: Text('Hajj'))
             ],
           ),
         ),

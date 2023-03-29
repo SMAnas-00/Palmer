@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:palmer/Screens/tripScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import '../Services/Tickets/Flight.dart';
+import '../main.dart';
 import 'HomeScreen.dart';
 
 class AnimalBookingPage extends StatefulWidget {
@@ -10,6 +15,8 @@ class AnimalBookingPage extends StatefulWidget {
 class _AnimalBookingPageState extends State<AnimalBookingPage> {
   String _animalType = 'GOAT - 10,000';
   int _numberOfAnimals = 1;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth user = FirebaseAuth.instance;
 
   final List<String> _animalTypes = [
     'GOAT - 10,000',
@@ -24,7 +31,7 @@ class _AnimalBookingPageState extends State<AnimalBookingPage> {
         color: Colors.white,
         onPressed: () {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MyHome()));
+              context, MaterialPageRoute(builder: (context) => BookTrip()));
         },
         icon: Icon(Icons.arrow_back));
     return Scaffold(
@@ -118,8 +125,23 @@ class _AnimalBookingPageState extends State<AnimalBookingPage> {
             SizedBox(height: 32.0),
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  _bookAnimal();
+                onPressed: () async {
+                  await firestore
+                      .collection('app')
+                      .doc('Services')
+                      .collection('requests')
+                      .doc('${user.currentUser!.uid}')
+                      .update({
+                    'Number_of_animal': _numberOfAnimals,
+                    'Animal_type': _animalType
+                  }).then((value) {
+                    displayMessage("request has been sent");
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FlightScreen()));
+                  }).onError((error, stackTrace) =>
+                          displayMessage(error.toString()));
                 },
                 child: Text('Book Animal'),
               ),
@@ -128,10 +150,5 @@ class _AnimalBookingPageState extends State<AnimalBookingPage> {
         ),
       ),
     );
-  }
-
-  void _bookAnimal() {
-    //TODO: Implement booking logic
-    //Send data to backend and show confirmation message
   }
 }

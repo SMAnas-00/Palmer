@@ -46,6 +46,7 @@ class _FlightDetailsState extends State<FlightDetails> {
       appBar: AppBar(
         backgroundColor: const Color(0xff4BA0FE),
         title: const Text("Flight Detail"),
+        leading: BackArrow,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

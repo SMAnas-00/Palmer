@@ -88,22 +88,22 @@ class _CartScreenState extends State<CartScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(children: [
-                                        Container(
-                                            // color: Colors.pink[200],
-                                            padding: EdgeInsets.all(10),
-                                            // hotel image
-                                            child: Image.network(
-                                              snapshot.data!.docs[index]
-                                                  ['hotel_image'],
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.1,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.2,
-                                            )),
+                                        // Container(
+                                        //     // color: Colors.pink[200],
+                                        //     padding: EdgeInsets.all(10),
+                                        //     // hotel image
+                                        //     child: Image.network(
+                                        //       snapshot.data!.docs[index]
+                                        //           ['hotel_image'],
+                                        //       height: MediaQuery.of(context)
+                                        //               .size
+                                        //               .height *
+                                        //           0.1,
+                                        //       width: MediaQuery.of(context)
+                                        //               .size
+                                        //               .width *
+                                        //           0.2,
+                                        //     )),
                                       ]),
                                       Column(
                                         children: [
@@ -192,7 +192,7 @@ class _CartScreenState extends State<CartScreen> {
                                           children: [
                                             Text('PICK:'),
                                             Text(snapshot.data!.docs[index]
-                                                ['transit_pick']),
+                                                ['transit_pickup']),
                                           ],
                                         ),
                                         SizedBox(height: 10),
@@ -200,7 +200,7 @@ class _CartScreenState extends State<CartScreen> {
                                           children: [
                                             Text('DROP:'),
                                             Text(snapshot.data!.docs[index]
-                                                ['transit_drop']),
+                                                ['transit_destination']),
                                           ],
                                         ),
                                       ],
@@ -209,7 +209,7 @@ class _CartScreenState extends State<CartScreen> {
                                         child: Column(
                                       children: [
                                         Text(snapshot.data!
-                                                .docs[index]['tansit_price']
+                                                .docs[index]['transit_price']
                                                 .toString() +
                                             '/-'),
                                         IconButton(
