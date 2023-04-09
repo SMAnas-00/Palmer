@@ -205,11 +205,12 @@ class _TransportDetailsState extends State<TransportDetails> {
                   String did = DateTime.now().toString();
                   await firestore
                       .collection('app')
-                      .doc('Services')
-                      .collection('requests')
+                      .doc('requests')
+                      .collection('transport')
                       .doc('${user.currentUser!.uid}')
-                      .update({
+                      .set({
                         'transit_type': widget.transtype,
+                        'customer_id': user.currentUser!.uid,
                         'transit_id': widget.transId,
                         'transit_price': widget.fareprice,
                         'transit_pickup': widget.pickup,
@@ -226,10 +227,8 @@ class _TransportDetailsState extends State<TransportDetails> {
                   //     widget.destination,
                   //     widget.flightPrice,
                   //     widget.flight_id);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CheckOutScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CardDetails()));
                 },
                 child: const Text(
                   "BOOK NOW",

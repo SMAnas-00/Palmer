@@ -32,6 +32,27 @@ class HotelsDetails extends StatefulWidget {
 class _HotelsDetailsState extends State<HotelsDetails> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth user = FirebaseAuth.instance;
+  DateTime _selectedCheckInDate = DateTime.now();
+  late DateTime _selectedCheckOutDate = DateTime.now();
+  int _selectedNumberOfGuests = 1;
+
+  Future<void> _selectDate(BuildContext context, bool isCheckInDate) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: isCheckInDate ? DateTime.now() : _selectedCheckOutDate,
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(Duration(days: 365 * 10)));
+    if (picked != null && picked != _selectedCheckInDate) {
+      setState(() {
+        if (isCheckInDate) {
+          _selectedCheckInDate = picked;
+        } else {
+          _selectedCheckOutDate = picked;
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final BackArrow = IconButton(
@@ -124,14 +145,108 @@ class _HotelsDetailsState extends State<HotelsDetails> {
                 const SizedBox(
                   width: 5,
                 ),
-                Text('Destination : ${widget.hotelRating}'),
+                Text('RATING : ${widget.hotelRating}'),
               ],
             ),
           ),
           const SizedBox(
             height: 20,
           ),
+          Container(
+            margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Check-in',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    InkWell(
+                      onTap: () => _selectDate(context, true),
+                      child: TextFormField(
+                        enabled: false,
+                        decoration: InputDecoration(
+                          hintText: _selectedCheckInDate == null
+                              ? 'Select date'
+                              : '${_selectedCheckInDate.day}/${_selectedCheckInDate.month}/${_selectedCheckInDate.year}',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          prefixIcon: Icon(Icons.calendar_today),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
+                SizedBox(width: 16.0),
+                Expanded(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Check-out',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    InkWell(
+                      onTap: () => _selectDate(context, false),
+                      child: TextFormField(
+                        enabled: false,
+                        decoration: InputDecoration(
+                          hintText: _selectedCheckOutDate == null
+                              ? 'Select date'
+                              : '${_selectedCheckOutDate.day}/${_selectedCheckOutDate.month}/${_selectedCheckOutDate.year}',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          prefixIcon: Icon(Icons.calendar_today),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
+              ],
+            ),
+          ),
 
+          SizedBox(height: 16.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Number of Rooms',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              DropdownButton<int>(
+                value: _selectedNumberOfGuests,
+                items: List.generate(4, (index) {
+                  return DropdownMenuItem<int>(
+                    value: index + 1,
+                    child: Text('${index + 1}'),
+                  );
+                }),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedNumberOfGuests = value!;
+                  });
+                },
+              )
+            ],
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -207,12 +322,14 @@ class _HotelsDetailsState extends State<HotelsDetails> {
                   String did = DateTime.now().toString();
                   await firestore
                       .collection('app')
-                      .doc('Services')
-                      .collection('requests')
+                      .doc('requests')
+                      .collection('hotel')
                       .doc('${user.currentUser!.uid}')
-                      .update({
+                      .set({
                         'hotel_name': widget.hotelName,
+                        'hotel_image': widget.hotelImageURL,
                         'hotel_id': widget.hotelid,
+                        'customer_id': user.currentUser!.uid,
                         'hotel_price': widget.hotelPrice,
                         'hotel_location': widget.hotelLocation,
                         'hotel_rating': widget.hotelRating,

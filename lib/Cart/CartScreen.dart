@@ -23,6 +23,7 @@ class _CartScreenState extends State<CartScreen> {
         .collection('app')
         .doc('Services')
         .collection('requests');
+    setState(() {});
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.teal[300]),
@@ -35,7 +36,7 @@ class _CartScreenState extends State<CartScreen> {
           GestureDetector(
             onTap: () {
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => CheckOutScreen()));
+                  MaterialPageRoute(builder: (context) => CardDetails()));
               firestore
                   .collection('app')
                   .doc('Services')
@@ -63,243 +64,53 @@ class _CartScreenState extends State<CartScreen> {
               itemBuilder: (context, index) {
                 if (snapshot.data!.docs[index]['customer_id'] == user?.uid &&
                     snapshot.data!.docs[index]['status'] == 'pending') {
-                  return SingleChildScrollView(
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            child: Card(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    gradient: LinearGradient(
-                                        colors: [
-                                          Color.fromARGB(255, 0, 150, 136),
-                                          Color.fromARGB(255, 129, 204, 197)
-                                        ],
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight)),
-                                padding: EdgeInsets.symmetric(vertical: 30),
-                                child: Container(
-                                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(children: [
-                                        // Container(
-                                        //     // color: Colors.pink[200],
-                                        //     padding: EdgeInsets.all(10),
-                                        //     // hotel image
-                                        //     child: Image.network(
-                                        //       snapshot.data!.docs[index]
-                                        //           ['hotel_image'],
-                                        //       height: MediaQuery.of(context)
-                                        //               .size
-                                        //               .height *
-                                        //           0.1,
-                                        //       width: MediaQuery.of(context)
-                                        //               .size
-                                        //               .width *
-                                        //           0.2,
-                                        //     )),
-                                      ]),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            // hotel name
-                                            snapshot.data!.docs[index]
-                                                ['hotel_name'],
-                                            style: GoogleFonts.luckiestGuy(
-                                                color: Colors.white),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            // hotel id
-                                            snapshot
-                                                .data!.docs[index]['hotel_id']
-                                                .toString(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.white60),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            // hotel price
-                                            snapshot.data!
-                                                    .docs[index]['hotel_price']
-                                                    .toString() +
-                                                '/-',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                          IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(
-                                                Icons.delete,
-                                                color: Colors.red[300],
-                                              ))
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                  if (snapshot.data!.docs[index]['hotel_id'] != null &&
+                      snapshot.data!.docs[index]['flight_id'] != null &&
+                      snapshot.data!.docs[index]['transit_id'] != null) {
+                    return SingleChildScrollView(
+                      child: Center(
+                        child: Column(
+                          children: [
+                            // Container(
+                            //     margin: EdgeInsets.symmetric(vertical: 10),
+                            //     child: hotelCart(
+                            //         snapshot, index, firestore, user)),
+                            Container(
+                              child: transportCart(
+                                  snapshot, index, firestore, user),
                             ),
-                          ),
-                          Card(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 50),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(
-                                    colors: [
-                                      Color.fromARGB(200, 255, 194, 101),
-                                      Color.fromARGB(199, 248, 229, 199)
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight),
-                              ),
-                              child: Container(
-                                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.all(10),
-                                        child: Text(
-                                          // transprot type
-                                          snapshot.data!.docs[index]
-                                              ['transit_type'],
-                                          style: GoogleFonts.bebasNeue(
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                              letterSpacing: 3),
-                                        )),
-                                    Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text('PICK:'),
-                                            Text(snapshot.data!.docs[index]
-                                                ['transit_pickup']),
-                                          ],
-                                        ),
-                                        SizedBox(height: 10),
-                                        Row(
-                                          children: [
-                                            Text('DROP:'),
-                                            Text(snapshot.data!.docs[index]
-                                                ['transit_destination']),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                        child: Column(
-                                      children: [
-                                        Text(snapshot.data!
-                                                .docs[index]['transit_price']
-                                                .toString() +
-                                            '/-'),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.delete,
-                                              color: Colors.red[300],
-                                            ))
-                                      ],
-                                    )),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Card(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 50),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(
-                                    colors: [
-                                      Color.fromARGB(200, 255, 194, 101),
-                                      Color.fromARGB(199, 248, 229, 199)
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight),
-                              ),
-                              child: Container(
-                                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.all(10),
-                                        child: Text(
-                                          // transprot type
-                                          snapshot.data!.docs[index]
-                                              ['airline_name'],
-                                          style: GoogleFonts.bebasNeue(
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                              letterSpacing: 3),
-                                        )),
-                                    Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(snapshot.data!.docs[index]
-                                                ['flight_departure']),
-                                          ],
-                                        ),
-                                        SizedBox(height: 10),
-                                        Row(
-                                          children: [
-                                            Text(snapshot.data!.docs[index]
-                                                ['flight_destination']),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                        child: Column(
-                                      children: [
-                                        Text(snapshot.data!
-                                                .docs[index]['flight_price']
-                                                .toString() +
-                                            '/-'),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.delete,
-                                              color: Colors.red[300],
-                                            ))
-                                      ],
-                                    )),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                            SizedBox(height: 5),
+                            Container(
+                              child:
+                                  FlightCart(snapshot, index, firestore, user),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    return SingleChildScrollView(
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Container(
+                              child: transportCart(
+                                  snapshot, index, firestore, user),
+                            ),
+                            SizedBox(height: 5),
+                            Container(
+                              child:
+                                  FlightCart(snapshot, index, firestore, user),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }
                 } else {
                   if (snapshot.data!.docs.isEmpty ||
                       snapshot.data!.docs[index]['status'] == 'success') {
+                    setState(() {});
                     return Center(
                         child: Container(
                             margin: EdgeInsets.only(top: 130),
@@ -317,4 +128,131 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
+}
+
+// Widget hotelCart(AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index,
+//     FirebaseFirestore firestore, User? user) {
+//   return
+// }
+
+Widget transportCart(AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index,
+    FirebaseFirestore firestore, User? user) {
+  return Card(
+    child: Container(
+      padding: EdgeInsets.symmetric(vertical: 50),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        gradient: LinearGradient(colors: [
+          Color.fromARGB(200, 255, 194, 101),
+          Color.fromARGB(199, 248, 229, 199)
+        ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+      ),
+      child: Container(
+        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                margin: EdgeInsets.all(10),
+                child: Text(
+                  // transprot type
+                  snapshot.data!.docs[index]['transit_type'],
+                  style: GoogleFonts.bebasNeue(
+                      color: Colors.white, fontSize: 20, letterSpacing: 3),
+                )),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Text('PICK:'),
+                    Text(snapshot.data!.docs[index]['transit_pickup']),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text('DROP:'),
+                    Text(snapshot.data!.docs[index]['transit_destination']),
+                  ],
+                ),
+              ],
+            ),
+            Container(
+                child: Column(
+              children: [
+                Text(snapshot.data!.docs[index]['transit_price'].toString() +
+                    '/-'),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.red[300],
+                    ))
+              ],
+            )),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget FlightCart(AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index,
+    FirebaseFirestore firestore, User? user) {
+  return Card(
+    child: Container(
+      padding: EdgeInsets.symmetric(vertical: 50),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        gradient: LinearGradient(colors: [
+          Color.fromARGB(200, 255, 194, 101),
+          Color.fromARGB(199, 248, 229, 199)
+        ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+      ),
+      child: Container(
+        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                margin: EdgeInsets.all(10),
+                child: Text(
+                  // transprot type
+                  snapshot.data!.docs[index]['airline_name'],
+                  style: GoogleFonts.bebasNeue(
+                      color: Colors.white, fontSize: 20, letterSpacing: 3),
+                )),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Text(snapshot.data!.docs[index]['flight_departure']),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text(snapshot.data!.docs[index]['flight_destination']),
+                  ],
+                ),
+              ],
+            ),
+            Container(
+                child: Column(
+              children: [
+                Text(snapshot.data!.docs[index]['flight_price'].toString() +
+                    '/-'),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.red[300],
+                    ))
+              ],
+            )),
+          ],
+        ),
+      ),
+    ),
+  );
 }

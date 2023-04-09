@@ -1,133 +1,70 @@
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:palmer/Cart/flightCart.dart';
+import 'package:palmer/Screens/HomeScreen.dart';
 
-// class FlightBookingScreen extends StatefulWidget {
-//   @override
-//   _FlightBookingScreenState createState() => _FlightBookingScreenState();
-// }
+import '../Cart/HotelCart.dart';
+import '../Cart/checkoutScreen.dart';
+import '../Cart/transportCart.dart';
 
-// class _FlightBookingScreenState extends State<FlightBookingScreen> {
-//   int _selectedTabIndex = 0;
-//   String _fromLocation = '';
-//   String _toLocation = '';
-//   String _selectedDepartureDate = '';
-//   String _selectedReturnDate = '';
+class Cart extends StatefulWidget {
+  const Cart({super.key});
 
-//   final List<String> _locations = [
-//     'New York',
-//     'London',
-//     'Paris',
-//     'Tokyo',
-//     'Beijing',
-//     'Sydney'
-//   ];
+  @override
+  State<Cart> createState() => _CartState();
+}
 
-//   final List<String> _passengerCount = [
-//     '1 Adult',
-//     '2 Adults',
-//     '3 Adults',
-//     '4 Adults',
-//     '5 Adults',
-//     '6 Adults'
-//   ];
-
-//   final List<String> _classType = ['Economy', 'Business', 'First Class'];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Flight Booking'),
-//       ),
-//       body: Container(
-//         padding: EdgeInsets.all(16.0),
-//         child: Column(
-//           children: <Widget>[
-//             _buildTabBar(),
-//             SizedBox(height: 16.0),
-//             Expanded(child: _buildTabView())
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _buildTabBar() {
-//     return TabBar(
-//       onTap: (int index) {
-//         setState(() {
-//           _selectedTabIndex = index;
-//         });
-//       },
-//       tabs: <Widget>[
-//         Tab(text: 'One Way'),
-//         Tab(text: 'Round Trip'),
-//       ],
-//       controller: TabController(
-//         vsync: AnimatedListState(),
-//         length: 2,
-//         initialIndex: _selectedTabIndex,
-//       ),
-//     );
-//   }
-
-//   Widget _buildTabView() {
-//     if (_selectedTabIndex == 0) {
-//       return _buildOneWayTabView();
-//     } else {
-//       return _buildRoundTripTabView();
-//     }
-//   }
-
-//   Widget _buildOneWayTabView() {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: <Widget>[
-//         Text('From', style: TextStyle(fontSize: 18.0)),
-//         DropdownButton<String>(
-//           value: _fromLocation,
-//           onChanged: (String newValue) {
-//             setState(() {
-//               _fromLocation = newValue;
-//             });
-//           },
-//           items: _locations
-//               .map<DropdownMenuItem<String>>((String value) {
-//             return DropdownMenuItem<String>(
-//               value: value,
-//               child: Text(value),
-//             );
-//           }).toList(),
-//         ),
-//         SizedBox(height: 16.0),
-//         Text('To', style: TextStyle(fontSize: 18.0)),
-//         DropdownButton<String>(
-//           value: _toLocation,
-//           onChanged: (String newValue) {
-//             setState(() {
-//               _toLocation = newValue;
-//             });
-//           },
-//           items:
-//               _locations.map<DropdownMenuItem<String>>((String value) {
-//             return DropdownMenuItem<String>(
-//               value: value,
-//               child: Text(value),
-//             );
-//           }).toList(),
-//         ),
-//         SizedBox(height: 16.0),
-//         Text('Departure Date', style: TextStyle(fontSize: 18.0)),
-//         InkWell(
-//           onTap: () => _selectDate(context),
-//           child: Container(
-//             padding: EdgeInsets.all(16.0),
-//             decoration: BoxDecoration(
-//               border: Border.all(color: Colors.grey),
-//               borderRadius: BorderRadius.circular(8.0),
-//             ),
-//             child: Row(
-//               children: <Widget>[
-//                 Icon(Icons.calendar_today),
-//                 SizedBox(width: 16.0),
-//                 Text(_selectedDepartureDate
-//                 )])))])}
+class _CartState extends State<Cart> {
+  @override
+  Widget build(BuildContext context) {
+    final BackArrow = IconButton(
+        color: Colors.white,
+        onPressed: () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MyHome()));
+        },
+        icon: Icon(Icons.arrow_back));
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            leading: BackArrow,
+            automaticallyImplyLeading: false,
+            actions: [
+              GestureDetector(
+                child: Container(
+                    margin: EdgeInsets.fromLTRB(0, 12, 8, 0),
+                    child: Text(
+                      'CHECKOUT',
+                      style: GoogleFonts.righteous(),
+                    )),
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => CardDetails()));
+                },
+              )
+            ],
+            title: Text('CART'),
+            bottom: TabBar(
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white,
+                tabs: [
+                  Tab(
+                    child: Text('Hotel'),
+                  ),
+                  Tab(
+                    child: Text('Transport'),
+                  ),
+                  Tab(
+                    child: Text('Flight'),
+                  )
+                ]),
+          ),
+          body: TabBarView(children: [
+            HotelCart(),
+            TransportCart(),
+            flightCart(),
+          ]),
+        ));
+  }
+}

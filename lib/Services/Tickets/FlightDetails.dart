@@ -209,8 +209,8 @@ class _FlightDetailsState extends State<FlightDetails> {
                   String did = DateTime.now().toString();
                   await firestore
                       .collection('app')
-                      .doc('Services')
-                      .collection('requests')
+                      .doc('requests')
+                      .collection('flight')
                       .doc('${user.currentUser!.uid}')
                       .set({
                         'adminId': widget.admin_id,

@@ -4,6 +4,7 @@ import 'package:palmer/AdminControls/addFlight.dart';
 import 'package:palmer/Cart/CartScreen.dart';
 import 'package:palmer/Screens/HomeScreen.dart';
 import 'package:palmer/Screens/map.dart';
+import 'package:palmer/Services/Hotels/Hotels.dart';
 import 'package:palmer/Services/Tickets/Flight.dart';
 import 'package:palmer/Screens/Signup.dart';
 import 'package:palmer/Screens/WelcomeScreen.dart';
@@ -65,12 +66,12 @@ class _ScreenLoginSignupState extends State<ScreenLoginSignup> {
               ),
             ),
             SizedBox(height: 10),
-            // ElevatedButton(
-            //     onPressed: () {
-            //       Navigator.pushReplacement(context,
-            //           MaterialPageRoute(builder: (context) => FlightBooking()));
-            //     },
-            //     child: Text('Practice'))
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (context) => Cart()));
+                },
+                child: Text('Practice'))
           ],
         ),
       ),
