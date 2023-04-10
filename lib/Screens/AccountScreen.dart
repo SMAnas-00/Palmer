@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:palmer/main.dart';
 import '../addons/round_button.dart';
@@ -27,6 +28,7 @@ class _account_PageState extends State<account_Page> {
   final lnameController = TextEditingController();
   final addressController = TextEditingController();
   final phoneController = TextEditingController();
+  final cnicController = TextEditingController();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -93,6 +95,10 @@ class _account_PageState extends State<account_Page> {
     }
     if (addressController.text.isNotEmpty) {
       user.update({'Address': addressController.text});
+    }
+    if (cnicController.text.isNotEmpty) {
+      user.update({'CNIC': cnicController.text});
+      print(cnicController);
     }
     displayMessage("Profile Updated successfully");
   }
@@ -283,6 +289,27 @@ class _account_PageState extends State<account_Page> {
                             decoration: InputDecoration(
                               border: const OutlineInputBorder(),
                               hintText: snapshot.data?['Address'],
+                              hintStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 21, 21, 21)),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          child: TextFormField(
+                            controller: cnicController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              hintText: (snapshot.data! == null &&
+                                      snapshot.data!
+                                          .data()!
+                                          .containsKey('cnic'))
+                                  ? snapshot.data!['cnic']
+                                  : 'CNIC',
                               hintStyle: const TextStyle(
                                   color: Color.fromARGB(255, 21, 21, 21)),
                             ),

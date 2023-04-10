@@ -124,6 +124,7 @@ class _MapViewState extends State<MapView> {
 
   late Position _currentPosition;
   String _currentAddress = '';
+  Set<Polygon> _polygon = {};
 
   final startAddressController = TextEditingController();
   final destinationAddressController = TextEditingController();
@@ -135,16 +136,14 @@ class _MapViewState extends State<MapView> {
   List<dynamic> _placesList = [];
 
   List<LatLng> Polygonpoints = const [
-    LatLng(24.87347804399943, 67.13521079053506),
-    LatLng(24.87347804399943, 67.1352436475928),
-    LatLng(24.8734774356484, 67.13527784575497),
-    LatLng(24.8734774356484, 67.13527784575497),
-    LatLng(24.8734774356484, 67.13529058624675),
-    LatLng(24.873457968414183, 67.13528857459016),
-    LatLng(24.873436067772, 67.13528589238136),
-    LatLng(24.873434242718304, 67.13531539667812),
-    LatLng(24.873415992179936, 67.13531539667812),
-    LatLng(24.873422684044336, 67.13520609666965)
+    LatLng(24.873463514025758, 67.13520799826712),
+    LatLng(24.873472639291787, 67.1352086688193),
+    LatLng(24.873480547855124, 67.13520933937151),
+    LatLng(24.873480547855124, 67.1352207387589),
+    LatLng(24.873479331153092, 67.13527371238264),
+    LatLng(24.873477506100052, 67.13529248784423),
+    LatLng(24.873459863919177, 67.13528913508323),
+    LatLng(24.873458038865834, 67.13523750256388),
   ];
 
   final startAddressFocusNode = FocusNode();
@@ -438,6 +437,8 @@ class _MapViewState extends State<MapView> {
     //     _isfocus = _focusNode.hasFocus;
     //   });
     // });
+
+    _checkLocation();
     _getCurrentLocation();
     startAddressController.addListener(() {
       onChange();
@@ -792,6 +793,12 @@ class _MapViewState extends State<MapView> {
         ),
       ),
     );
+  }
+
+  void _checkLocation() async {
+    LatLng currentlocation = await _getCurrentLocation();
+    bool isInside = false;
+    for (Polygon polygon in _polygon) {}
   }
 }
 

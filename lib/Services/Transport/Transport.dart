@@ -55,8 +55,8 @@ class _TransportServiceState extends State<TransportService> {
                   style: TextStyle(color: Colors.teal),
                 )),
             onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => CartScreen()));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Cart()));
             },
           )
         ],

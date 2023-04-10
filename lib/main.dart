@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => SignUp(),
         '/userdash': (context) => MyHome(),
         '/admindash': (context) => AdminPanel(),
-        '/cart': (context) => CartScreen(),
+        '/cart': (context) => Cart(),
       },
     );
   }

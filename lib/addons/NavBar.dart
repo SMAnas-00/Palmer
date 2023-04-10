@@ -202,8 +202,8 @@ class _NavBarState extends State<NavBar> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Cart()));
+                // Navigator.push(
+                //     context, MaterialPageRoute(builder: (context) => Cart()));
               },
               child: const ListTile(
                 leading: Icon(

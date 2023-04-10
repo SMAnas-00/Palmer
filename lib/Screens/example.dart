@@ -1,70 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:palmer/Cart/flightCart.dart';
-import 'package:palmer/Screens/HomeScreen.dart';
 
-import '../Cart/HotelCart.dart';
-import '../Cart/checkoutScreen.dart';
-import '../Cart/transportCart.dart';
-
-class Cart extends StatefulWidget {
-  const Cart({super.key});
+class Card extends StatefulWidget {
+  const Card({super.key});
 
   @override
-  State<Cart> createState() => _CartState();
+  State<Card> createState() => _CardState();
 }
 
-class _CartState extends State<Cart> {
+class _CardState extends State<Card> {
   @override
   Widget build(BuildContext context) {
-    final BackArrow = IconButton(
-        color: Colors.white,
-        onPressed: () {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MyHome()));
-        },
-        icon: Icon(Icons.arrow_back));
-    return DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            leading: BackArrow,
-            automaticallyImplyLeading: false,
-            actions: [
-              GestureDetector(
-                child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 12, 8, 0),
-                    child: Text(
-                      'CHECKOUT',
-                      style: GoogleFonts.righteous(),
-                    )),
-                onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => CardDetails()));
-                },
-              )
-            ],
-            title: Text('CART'),
-            bottom: TabBar(
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.white,
-                tabs: [
-                  Tab(
-                    child: Text('Hotel'),
-                  ),
-                  Tab(
-                    child: Text('Transport'),
-                  ),
-                  Tab(
-                    child: Text('Flight'),
-                  )
-                ]),
-          ),
-          body: TabBarView(children: [
-            HotelCart(),
-            TransportCart(),
-            flightCart(),
-          ]),
-        ));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('CARD'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [TextField()],
+        ),
+      ),
+    );
   }
 }
