@@ -6,6 +6,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:palmer/AdminControls/AdminDash.dart';
 import 'package:palmer/Cart/CartScreen.dart';
 import 'package:palmer/Screens/AccountScreen.dart';
@@ -21,6 +23,8 @@ import 'Screens/login_Screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  var box = await Hive.openBox('Task');
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -34,7 +38,7 @@ void main() async {
   // Initialize the timezone.
   tz.initializeTimeZones();
   await Firebase.initializeApp();
-  runApp(GetMaterialApp(
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
   ));

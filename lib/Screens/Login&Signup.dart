@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:palmer/AdminControls/AdminDash.dart';
 import 'package:palmer/AdminControls/addFlight.dart';
 import 'package:palmer/Cart/CartScreen.dart';
@@ -10,6 +11,8 @@ import 'package:palmer/Screens/Signup.dart';
 import 'package:palmer/Screens/WelcomeScreen.dart';
 import 'package:palmer/Screens/login_Screen.dart';
 import 'package:video_player/video_player.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 import 'distanceCAL.dart';
 import 'example.dart';
@@ -67,14 +70,34 @@ class _ScreenLoginSignupState extends State<ScreenLoginSignup> {
             ),
             SizedBox(height: 10),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (context) => Cart()));
-                },
+                onPressed: () => _scheduleNotification(),
                 child: Text('Practice'))
           ],
         ),
       ),
     );
   }
+}
+
+Future<void> _scheduleNotification() async {
+  // Define the notification details.
+  const AndroidNotificationDetails androidPlatformChannelSpecifics =
+      AndroidNotificationDetails('01', 'ALERT',
+          channelDescription: 'you are in BOUNDARY',
+          importance: Importance.max,
+          priority: Priority.high,
+          showWhen: false);
+  const NotificationDetails platformChannelSpecifics =
+      NotificationDetails(android: androidPlatformChannelSpecifics);
+
+  // Schedule the notification.
+  await FlutterLocalNotificationsPlugin().zonedSchedule(
+      0,
+      'ALERT',
+      'YOU ARE IN THE BOUNDARY',
+      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+      platformChannelSpecifics,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime);
 }

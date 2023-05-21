@@ -5,14 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:palmer/Screens/AccountScreen.dart';
 import 'package:palmer/Screens/HomeScreen.dart';
 import 'package:palmer/Screens/Login&Signup.dart';
+import 'package:palmer/Screens/TODO/TodoListScreen.dart';
 import 'package:palmer/Screens/distanceCAL.dart';
 import 'package:palmer/Screens/guideScreen.dart';
 import 'package:palmer/main.dart';
 import 'package:palmer/Screens/tripScreen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../Screens/AnimalBook.dart';
 import '../Screens/example.dart';
 import '../Screens/map.dart';
+import '../Screens/minaCamp.dart';
+import '../Screens/weatherScreen.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -45,6 +49,15 @@ class _NavBarState extends State<NavBar> {
         .doc(uid)
         .get();
     return users.data()?['dp'];
+  }
+
+  _launchURL() async {
+    const url = 'http://www.360tr.net/saudi-arabia/mecca-kaabe-al-masjid/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -176,6 +189,20 @@ class _NavBarState extends State<NavBar> {
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ToDoScreen()));
+              },
+              child: const ListTile(
+                leading: Icon(
+                  Icons.list_alt_sharp,
+                  color: Colors.teal,
+                ),
+                title: Text("TODO LIST"),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const BookTrip()));
               },
               child: const ListTile(
@@ -184,6 +211,33 @@ class _NavBarState extends State<NavBar> {
                   color: Colors.teal,
                 ),
                 title: Text("BOOK YOUR TRIP"),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CricketStadium()));
+              },
+              child: const ListTile(
+                leading: Icon(
+                  Icons.cabin_sharp,
+                  color: Colors.teal,
+                ),
+                title: Text("Mina CAMP"),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                _launchURL();
+              },
+              child: const ListTile(
+                leading: Icon(
+                  Icons.map,
+                  color: Colors.teal,
+                ),
+                title: Text("360 View"),
               ),
             ),
             GestureDetector(
@@ -202,15 +256,15 @@ class _NavBarState extends State<NavBar> {
             ),
             GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //     context, MaterialPageRoute(builder: (context) => Cart()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyWeather()));
               },
               child: const ListTile(
                 leading: Icon(
-                  Icons.settings,
+                  Icons.cloudy_snowing,
                   color: Colors.teal,
                 ),
-                title: Text("Settings"),
+                title: Text("Weather"),
               ),
             ),
             GestureDetector(

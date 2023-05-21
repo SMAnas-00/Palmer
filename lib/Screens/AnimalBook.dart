@@ -126,14 +126,29 @@ class _AnimalBookingPageState extends State<AnimalBookingPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  int animalCost = 10000;
+                  if (_animalType == 'GOAT - 10,000') {
+                    animalCost = 10000 * _numberOfAnimals;
+                  }
+                  if (_animalType == 'GOAT - 15,000') {
+                    animalCost = 15000 * _numberOfAnimals;
+                  }
+                  if (_animalType == 'GOAT - 18,000') {
+                    animalCost = 18000 * _numberOfAnimals;
+                  }
+                  if (_animalType == 'GOAT - 20,000') {
+                    animalCost = 20000 * _numberOfAnimals;
+                  }
                   await firestore
                       .collection('app')
-                      .doc('Services')
-                      .collection('requests')
+                      .doc('requests')
+                      .collection('Animals')
                       .doc('${user.currentUser!.uid}')
                       .update({
+                    'customer_id': user.currentUser!.uid,
                     'Number_of_animal': _numberOfAnimals,
-                    'Animal_type': _animalType
+                    'Animal_type': _animalType,
+                    'Animal_cost': animalCost
                   }).then((value) {
                     displayMessage("request has been sent");
                     Navigator.pushReplacement(

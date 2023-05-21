@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:palmer/Screens/Login&Signup.dart';
+import 'package:panorama/panorama.dart';
 
 import 'package:palmer/addons/NavBar.dart';
 
@@ -217,13 +218,12 @@ class _MyHomeState extends State<MyHome> {
                                 color: Colors.teal[300]),
                           ),
                         ),
-                        Row(
-                          children: [
-                            Container(),
-                            Container(),
-                            Container(),
-                          ],
-                        )
+                        // Container(
+                        //   child: Panorama(
+
+                        //     child: Image.asset('images/image04.jpg'),
+                        //   ),
+                        // )
                       ],
                     ),
                   ),
